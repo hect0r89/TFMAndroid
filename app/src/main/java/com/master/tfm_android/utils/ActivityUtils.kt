@@ -9,7 +9,8 @@ import android.support.v4.app.FragmentManager
  */
 
 object ActivityUtils {
-
+    val PREF_NAME : String = "Preferences"
+    val TOKEN_NAME : String = "token"
     /**
      * The `fragment` is added to the container view with id `frameId`. The operation is
      * performed by the `fragmentManager`.

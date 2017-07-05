@@ -6,4 +6,12 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="account_msg_1">Don\'t have an account yet?</string>
+    <string name="account_msg_2">Create one</string>
+    <string name="register">REGISTER</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_a_member">Already a member?</string>
+    <string name="sign_in">SIGN IN</string>
 </resources>
