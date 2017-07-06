@@ -6,21 +6,34 @@ import com.master.tfm_android.models.RegisterModel
 import com.master.tfm_android.services.BetsApi
 import rx.Observable
 
-/**
- * Created by hector on 6/7/17.
- */
 
-object RetrofitAuthenticationRepository  : AuthenticationRepository{
 
-    val api = BetsApi
+class RetrofitAuthenticationRepository  : AuthenticationRepository{
 
     override fun login(login: LoginModel): Observable<Authenticated> {
-        return api.betService.login(login)
+        return BetsApi.betService.login(login)
     }
 
     override fun register(register: RegisterModel): Observable<Authenticated> {
-        return api.betService.register(register)
+        return BetsApi.betService.register(register)
     }
+
+    override fun checkCredentials(token : String) : Boolean {
+        if(token.isNotEmpty()){
+            BetsApi.addToken(token)
+            return true
+        }
+        return false
+    }
+
+    companion object {
+        lateinit var instance: RetrofitAuthenticationRepository
+
+        fun initialize(){
+            instance = RetrofitAuthenticationRepository()
+        }
+    }
+
 
 
 

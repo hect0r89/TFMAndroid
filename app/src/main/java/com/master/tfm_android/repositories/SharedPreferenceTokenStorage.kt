@@ -15,7 +15,7 @@ class SharedPreferenceTokenStorage(context : Context, prefFileName : String) : T
     }
 
     override fun saveToken(token: String) {
-        mPrefs?.edit()?.putString(PREF_KEY_TOKEN, token)?.apply()
+        mPrefs?.edit()?.putString(PREF_KEY_TOKEN, "Token "+token)?.apply()
     }
 
     override fun getToken() : String?{

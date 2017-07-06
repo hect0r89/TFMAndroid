@@ -18,6 +18,7 @@ class MainBaseFragment : Fragment() {
         return MainBaseFragment()
     }
 
+
     @Nullable
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

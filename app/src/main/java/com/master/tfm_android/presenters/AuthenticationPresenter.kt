@@ -11,13 +11,14 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 
-class AuthenticationPresenter(private val api: RetrofitAuthenticationRepository) : AuthenticationContract.Presenter {
+class AuthenticationPresenter() : AuthenticationContract.Presenter {
 
     private var mLoginView: AuthenticationContract.View? = null
     private var mRegisterView: AuthenticationContract.View? = null
     private var mPreferences: SharedPreferenceTokenStorage? = null
+    private val api = RetrofitAuthenticationRepository.instance
 
-    constructor(@NotNull loginView: AuthenticationContract.View, @NotNull registerView: AuthenticationContract.View, preferences: SharedPreferenceTokenStorage) : this(RetrofitAuthenticationRepository) {
+    constructor(@NotNull loginView: AuthenticationContract.View, @NotNull registerView: AuthenticationContract.View, preferences: SharedPreferenceTokenStorage) : this() {
         mLoginView = checkNotNull(loginView)
         mRegisterView = checkNotNull(registerView)
         mPreferences = checkNotNull(preferences)
@@ -33,7 +34,7 @@ class AuthenticationPresenter(private val api: RetrofitAuthenticationRepository)
 
     override fun login(username: String, password: String) {
         val login = LoginModel(username, password)
-        api.login(login)
+            api.login(login)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

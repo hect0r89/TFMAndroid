@@ -4,9 +4,13 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
+import android.util.Log
 import com.master.tfm_android.R
 import com.master.tfm_android.presenters.AuthenticationPresenter
+import com.master.tfm_android.repositories.RetrofitAuthenticationRepository
 import com.master.tfm_android.repositories.SharedPreferenceTokenStorage
+import com.master.tfm_android.services.BetsApi
 import com.master.tfm_android.utils.ActivityUtils
 import com.master.tfm_android.utils.ActivityUtils.PREF_NAME
 import com.master.tfm_android.views.main.principal.MainActivity
@@ -16,15 +20,21 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
 
     var loginFragment: LoginFragment? = null
     var registerFragment: RegisterFragment? = null
+    var token : String = ""
+    var prefs: SharedPreferenceTokenStorage? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
 
-        val prefs = SharedPreferenceTokenStorage(context = applicationContext, prefFileName = PREF_NAME)
-        val token = prefs.getToken()
+        RetrofitAuthenticationRepository.initialize()
+        BetsApi.initialize()
+        prefs = SharedPreferenceTokenStorage(context = applicationContext, prefFileName = PREF_NAME)
+        prefs?.getToken()?.let {
+            token = it
+        }
 
-        if (token!!.isNotEmpty()) {
+        if (token.isNotEmpty()) {
             onCorrectLogin()
         } else {
             loginFragment = supportFragmentManager
@@ -43,7 +53,7 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
 
 
 
-            AuthenticationPresenter(loginFragment as LoginFragment, registerFragment as RegisterFragment, prefs)
+            AuthenticationPresenter(loginFragment as LoginFragment, registerFragment as RegisterFragment, prefs as SharedPreferenceTokenStorage)
         }
 
 
@@ -77,9 +87,15 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
     }
 
     override fun onCorrectLogin() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+        val token = prefs?.getToken()
+        if(RetrofitAuthenticationRepository.instance.checkCredentials(token as String)){
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else{
+            AlertDialog.Builder(applicationContext).setTitle("Error").setMessage("Token error, delete app data and try again").setPositiveButton("OK", { dialog, id ->  }).show()
+        }
+
     }
 
 
