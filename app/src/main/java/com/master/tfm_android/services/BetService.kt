@@ -4,7 +4,7 @@ import com.master.tfm_android.models.LoginModel
 import com.master.tfm_android.models.RegisterModel
 import retrofit2.http.Body
 import retrofit2.http.POST
-
+import rx.Observable
 
 
 /**
@@ -15,8 +15,8 @@ import retrofit2.http.POST
 interface BetService {
 
     @POST("authentication/login/")
-    fun login(@Body login: LoginModel): rx.Observable<Authenticated>
+    fun login(@Body login: LoginModel): Observable<Authenticated>
 
     @POST("authentication/register/")
-    fun register(@Body register: RegisterModel): rx.Observable<Authenticated>
+    fun register(@Body register: RegisterModel): Observable<Authenticated>
 }

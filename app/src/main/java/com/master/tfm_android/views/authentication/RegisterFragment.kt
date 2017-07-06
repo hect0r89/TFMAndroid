@@ -11,19 +11,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.master.tfm_android.R
-import com.master.tfm_android.contracts.LoginContract
-import com.master.tfm_android.contracts.RegisterContract
-import com.master.tfm_android.presenters.LoginPresenter
-import com.master.tfm_android.presenters.RegisterPresenter
-import com.master.tfm_android.utils.ActivityUtils
+import com.master.tfm_android.contracts.AuthenticationContract
 import org.jetbrains.annotations.Nullable
 
 
-class RegisterFragment : Fragment(), RegisterContract.View {
+class RegisterFragment : Fragment(), AuthenticationContract.View {
 
 
 
-    private var mPresenter: RegisterContract.Presenter? = null
+    private var mPresenter: AuthenticationContract.Presenter? = null
 
 
 
@@ -31,15 +27,17 @@ class RegisterFragment : Fragment(), RegisterContract.View {
         return RegisterFragment()
     }
 
-    override fun setPresenter(presenter: RegisterContract.Presenter) {
+    override fun setPresenter(presenter: AuthenticationContract.Presenter) {
         mPresenter = checkNotNull(presenter)
     }
 
 
+
     @Nullable
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val root = inflater!!.inflate(R.layout.fragment_register, container, false)
+
+        val root = inflater.inflate(R.layout.fragment_register, container, false)
         val btnRegister = root.findViewById(R.id.btnRegister) as Button
         val editTextUsername = root.findViewById(R.id.editTextUsernameRegister) as TextView
         val editTextEmail = root.findViewById(R.id.editTextEmail) as EditText
@@ -56,7 +54,7 @@ class RegisterFragment : Fragment(), RegisterContract.View {
             }
         }
 
-        linkLogin.setOnClickListener { showLogin() }
+        linkLogin.setOnClickListener { (activity as RegisterFragment.OnLoginClickListener).onLoginClick() }
         return root
     }
 
@@ -65,18 +63,12 @@ class RegisterFragment : Fragment(), RegisterContract.View {
     }
 
     override fun showMainActivity() {
-        TODO("not implemented")
+        (activity as OnCorrectLoginListener).onCorrectLogin()
     }
 
-    private fun showLogin() {
-        var loginFragment: LoginFragment? = activity.supportFragmentManager
-                .findFragmentById(R.id.contentFrame) as? LoginFragment
-        if (loginFragment == null) {
-            loginFragment = LoginFragment().newInstance()
-            ActivityUtils.addFragmentToActivity(activity.supportFragmentManager,
-                    loginFragment, R.id.contentFrame)
-        }
 
+    interface OnLoginClickListener {
+        fun onLoginClick()
     }
 
 
