@@ -8,6 +8,7 @@ import rx.Observable
 class RetrofitMainRepository  : MainRepository{
 
 
+
     val api = BetsApi.betService
 
     override fun getSubscribedBets(): Observable<List<BetModel>> {
@@ -20,6 +21,10 @@ class RetrofitMainRepository  : MainRepository{
 
     override fun getMyStats(): Observable<StatsModel> {
         return api.getMyStats()
+    }
+
+    override fun createBet(bet: BetModel): Observable<BetModel> {
+        return api.createBet(bet)
     }
 
     companion object {

@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentManager
  */
 
 object ActivityUtils {
-    val PREF_NAME : String = "Preferences"
-    val TOKEN_NAME : String = "token"
+    val PREF_NAME: String = "Preferences"
+    val TOKEN_NAME: String = "token"
     /**
      * The `fragment` is added to the container view with id `frameId`. The operation is
      * performed by the `fragmentManager`.
@@ -25,8 +25,18 @@ object ActivityUtils {
         transaction.commit()
     }
 
+    fun addOnTopFragmentToActivity(fragmentManager: FragmentManager,
+                                   fragment: Fragment, frameId: Int) {
+        checkNotNull(fragmentManager)
+        checkNotNull(fragment)
+        val transaction = fragmentManager.beginTransaction()
+        transaction.add(frameId, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
     fun replaceFragmentToActivity(fragmentManager: FragmentManager,
-                              fragment: Fragment, frameId: Int) {
+                                  fragment: Fragment, frameId: Int) {
         checkNotNull(fragmentManager)
         checkNotNull(fragment)
         val transaction = fragmentManager.beginTransaction()

@@ -11,9 +11,10 @@ import com.master.tfm_android.R
 import com.master.tfm_android.repositories.RetrofitMainRepository
 import com.master.tfm_android.utils.ActivityUtils
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListener {
 
     var baseFragment: MainBaseFragment? = null
+    var mCreateBetFragment: CreateBetFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +27,27 @@ class MainActivity : AppCompatActivity() {
                 .findFragmentById(R.id.contentMainFrame) as? MainBaseFragment
         if (baseFragment == null) {
             baseFragment = MainBaseFragment.newInstance()
-            baseFragment?.let{ActivityUtils.addFragmentToActivity(supportFragmentManager, it, R.id.contentMainFrame)}
+            baseFragment?.let { ActivityUtils.addFragmentToActivity(supportFragmentManager, it, R.id.contentMainFrame) }
 
         }
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener(View.OnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        })
+
     }
+
+    override fun onCreateBetClick() {
+        mCreateBetFragment = supportFragmentManager
+                .findFragmentById(R.id.contentMainFrame) as? CreateBetFragment
+        if (mCreateBetFragment == null) {
+            mCreateBetFragment = CreateBetFragment.newInstance()
+            mCreateBetFragment?.let {
+
+                ActivityUtils.addOnTopFragmentToActivity(supportFragmentManager,
+                        it, R.id.contentMainFrame)
+            }
+
+        }
+
+    }
+
 
 }

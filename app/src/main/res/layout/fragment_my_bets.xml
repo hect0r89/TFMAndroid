@@ -1,11 +1,13 @@
+
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bet_rec_view"
+    android:scrollbars="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.master.tfm_android.views.main.principal.SubscribedBetsFragment"
-    tools:listitem="@layout/fragment_subscribed_bets_item" />
+    tools:context="com.master.tfm_android.views.main.principal.MainActivity"
+    tools:listitem="@layout/fragment_my_bets_item" />

@@ -3,7 +3,6 @@ package com.master.tfm_android.views.main.principal
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,17 +69,17 @@ class MyStatsFragment : Fragment(), MyStatsContract.View {
         this.stats = stats
         if (statsTextViews.isNotEmpty()) {
             statsTextViews["bet"]?.text = "${stats.money_staked} €"
-            statsTextViews["earnings"]?.text = "${stats.earnings} €"
+            statsTextViews["earnings"]?.text = "${stats.earnings.format(2)} €"
             statsTextViews["earnings"]?.setTextColor(Color.parseColor("#64DD17"))
-            statsTextViews["mean_bet"]?.text = "${stats.bets_mean} €"
+            statsTextViews["mean_bet"]?.text = "${stats.bets_mean.format(2)} €"
             statsTextViews["number_bets"]?.text = "${stats.bets_number}"
             statsTextViews["fails"]?.text = "${stats.lost_bets}"
-            statsTextViews["benefits"]?.text = "${stats.benefit} €"
+            statsTextViews["benefits"]?.text = "${stats.benefit.format(2)} €"
             if (stats.benefit > 0) statsTextViews["benefits"]?.setTextColor(Color.parseColor("#64DD17"))
             else if (stats.benefit < 0) statsTextViews["benefits"]?.setTextColor(Color.parseColor("#C62828"))
-            statsTextViews["losses"]?.text = "${stats.losses} €"
+            statsTextViews["losses"]?.text = "${stats.losses.format(2)} €"
             statsTextViews["losses"]?.setTextColor(Color.parseColor("#C62828"))
-            statsTextViews["mean_odd"]?.text = "${stats.odds_mean}"
+            statsTextViews["mean_odd"]?.text = "${stats.odds_mean.format(2)}"
             statsTextViews["wins"]?.text = "${stats.win_bets}"
             statsTextViews["nulls"]?.text = "${stats.null_bets}"
             statsTextViews["yield"]?.text = "${stats.yield.format(2)} %"

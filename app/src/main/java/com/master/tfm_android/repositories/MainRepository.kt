@@ -8,4 +8,5 @@ interface MainRepository {
     fun getSubscribedBets() : Observable<List<BetModel>>
     fun getMyBets() : Observable<List<BetModel>>
     fun getMyStats() : Observable<StatsModel>
+    fun createBet(bet : BetModel) : Observable<BetModel>
 }

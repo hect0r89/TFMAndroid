@@ -27,4 +27,15 @@
     <string name="lbl_wins">Wins:</string>
     <string name="lbl_nulls">Nulls:</string>
     <string name="lbl_yield">Yield:</string>
+    <string name="event">Event</string>
+    <string name="type">Type</string>
+    <string name="pick">Pick</string>
+    <string name="stake">Stake</string>
+    <string name="amount">Amount</string>
+    <string name="odds">Odds</string>
+    <string name="status">Status</string>
+    <string name="tipster">Tipster</string>
+    <string name="create">Create</string>
+
+    <string name="event_error">Enter a valid event</string>
 </resources>

@@ -22,4 +22,7 @@ interface BetService {
 
     @GET("users/my_stats/")
     fun getMyStats(): Observable<StatsModel>
+
+    @POST("bets/")
+    fun createBet(@Body bet : BetModel) : Observable<BetModel>
 }
