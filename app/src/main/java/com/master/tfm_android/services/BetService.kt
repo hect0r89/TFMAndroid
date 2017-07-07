@@ -1,18 +1,10 @@
 package com.master.tfm_android.services
-import com.master.tfm_android.models.Authenticated
-import com.master.tfm_android.models.BetModel
-import com.master.tfm_android.models.LoginModel
-import com.master.tfm_android.models.RegisterModel
+import com.master.tfm_android.models.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import rx.Observable
-
-
-/**
- * Created by hector on 5/7/17.
- */
-
 
 interface BetService {
 
@@ -24,4 +16,10 @@ interface BetService {
 
     @GET("subscribed_bets/")
     fun getSubscribedBets(): Observable<List<BetModel>>
+
+    @GET("bets/")
+    fun getMyBets(): Observable<List<BetModel>>
+
+    @GET("users/my_stats/")
+    fun getMyStats(): Observable<StatsModel>
 }

@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.master.tfm_android.R
 import com.master.tfm_android.models.BetModel
-import com.master.tfm_android.views.main.principal.SubscribedBetsFragment
+import com.master.tfm_android.views.main.principal.MyBetsFragment
 
-class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, private val interactionListener: SubscribedBetsFragment.OnListFragmentInteractionListener?) : RecyclerView.Adapter<SubscribedBetsRecyclerViewAdapter.ViewHolder>() {
+
+class MyBetsRecyclerViewAdapter(private val bets: List<BetModel>, private val interactionListener: MyBetsFragment.OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyBetsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_subscribed_bets_item, parent, false)
+                .inflate(R.layout.fragment_my_bets_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -25,7 +26,8 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
         holder.pickView.text = bet.pick
         holder.oddsView.text = bet.odds.toString()
         showStatus(bet, holder.statusView)
-        holder.stakeView.text = "${(bet.stake * 10).toInt()}/10"
+        holder.stakeView.text = "${(bet.stake * 10).toInt() }/10"
+        holder.amountView.text = "${bet.amount} €"
 
         holder.mView.setOnClickListener {
             interactionListener?.onListFragmentInteraction(holder.betItem as BetModel)
@@ -39,11 +41,11 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
                 view.setTextColor(Color.parseColor("#F57F17"))
             }
             "W" -> {
-                view.text = "+${((bet.stake * 10).toInt() * bet.odds - (bet.stake * 10).toInt()).format(2)} u"
+                view.text = "+${(bet.amount * bet.odds - bet.amount).format(2)} €"
                 view.setTextColor(Color.parseColor("#64DD17"))
             }
             "L" -> {
-                view.text = "-${(bet.stake * 10).toInt()} u"
+                view.text = "-${bet.amount} €"
                 view.setTextColor(Color.parseColor("#C62828"))
             }
         }
@@ -61,6 +63,7 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
         val oddsView: TextView
         val statusView: TextView
         val stakeView: TextView
+        val amountView: TextView
         var betItem: BetModel? = null
 
         init {
@@ -69,6 +72,7 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
             oddsView = mView.findViewById(R.id.txtOdds) as TextView
             statusView = mView.findViewById(R.id.txtStatus) as TextView
             stakeView = mView.findViewById(R.id.txtStake) as TextView
+            amountView = mView.findViewById(R.id.txtAmount) as TextView
 
         }
     }

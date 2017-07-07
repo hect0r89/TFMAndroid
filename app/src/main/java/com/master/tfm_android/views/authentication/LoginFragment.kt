@@ -25,8 +25,10 @@ class LoginFragment : Fragment(), AuthenticationContract.View {
         mPresenter = checkNotNull(presenter)
     }
 
-    fun newInstance(): LoginFragment {
-        return LoginFragment()
+    companion object {
+        fun newInstance(): LoginFragment {
+            return LoginFragment()
+        }
     }
 
 

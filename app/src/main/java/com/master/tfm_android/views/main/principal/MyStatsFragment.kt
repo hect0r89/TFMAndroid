@@ -1,31 +1,97 @@
 package com.master.tfm_android.views.main.principal
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.master.tfm_android.R
+import com.master.tfm_android.contracts.MyStatsContract
+import com.master.tfm_android.models.StatsModel
+import com.master.tfm_android.presenters.MyStatsPresenter
 import org.jetbrains.annotations.Nullable
 
 
+class MyStatsFragment : Fragment(), MyStatsContract.View {
 
-class MyStatsFragment : Fragment() {
 
+    private var mPresenter: MyStatsContract.Presenter? = null
+    private var stats: StatsModel? = null
+    private var statsTextViews: HashMap<String, TextView> = HashMap()
 
-    fun newInstance(): MyStatsFragment {
-        return MyStatsFragment()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        MyStatsPresenter(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mPresenter?.start()
+    }
+
+    fun start() {
+        mPresenter?.start()
     }
 
 
+    companion object {
+        fun newInstance(): MyStatsFragment {
+            return MyStatsFragment()
+        }
+    }
+
+    override fun setPresenter(presenter: MyStatsContract.Presenter) {
+        mPresenter = checkNotNull(presenter)
+    }
 
     @Nullable
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_my_stats, container, false)
-
+        statsTextViews["bet"] = root.findViewById(R.id.txtBet) as TextView
+        statsTextViews["earnings"] = root.findViewById(R.id.txtEarnings) as TextView
+        statsTextViews["mean_bet"] = root.findViewById(R.id.txtMeanBets) as TextView
+        statsTextViews["number_bets"] = root.findViewById(R.id.txtBetNumber) as TextView
+        statsTextViews["fails"] = root.findViewById(R.id.txtFails) as TextView
+        statsTextViews["benefits"] = root.findViewById(R.id.txtBenefits) as TextView
+        statsTextViews["losses"] = root.findViewById(R.id.txtLosses) as TextView
+        statsTextViews["mean_odd"] = root.findViewById(R.id.txtMeanOdds) as TextView
+        statsTextViews["wins"] = root.findViewById(R.id.txtWins) as TextView
+        statsTextViews["nulls"] = root.findViewById(R.id.txtNulls) as TextView
+        statsTextViews["yield"] = root.findViewById(R.id.txtYield) as TextView
+        statsTextViews["success"] = root.findViewById(R.id.txtSuccess) as TextView
         return root
     }
+
+    override fun updateStats(stats: StatsModel) {
+        this.stats = stats
+        if (statsTextViews.isNotEmpty()) {
+            statsTextViews["bet"]?.text = "${stats.money_staked} €"
+            statsTextViews["earnings"]?.text = "${stats.earnings} €"
+            statsTextViews["earnings"]?.setTextColor(Color.parseColor("#64DD17"))
+            statsTextViews["mean_bet"]?.text = "${stats.bets_mean} €"
+            statsTextViews["number_bets"]?.text = "${stats.bets_number}"
+            statsTextViews["fails"]?.text = "${stats.lost_bets}"
+            statsTextViews["benefits"]?.text = "${stats.benefit} €"
+            if (stats.benefit > 0) statsTextViews["benefits"]?.setTextColor(Color.parseColor("#64DD17"))
+            else if (stats.benefit < 0) statsTextViews["benefits"]?.setTextColor(Color.parseColor("#C62828"))
+            statsTextViews["losses"]?.text = "${stats.losses} €"
+            statsTextViews["losses"]?.setTextColor(Color.parseColor("#C62828"))
+            statsTextViews["mean_odd"]?.text = "${stats.odds_mean}"
+            statsTextViews["wins"]?.text = "${stats.win_bets}"
+            statsTextViews["nulls"]?.text = "${stats.null_bets}"
+            statsTextViews["yield"]?.text = "${stats.yield.format(2)} %"
+            if (stats.yield > 0) statsTextViews["yield"]?.setTextColor(Color.parseColor("#64DD17"))
+            else if (stats.yield < 0) statsTextViews["yield"]?.setTextColor(Color.parseColor("#C62828"))
+            statsTextViews["success"]?.text = "${stats.success_percentage.format(2)} %"
+
+        }
+    }
+
+    fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
 
 }

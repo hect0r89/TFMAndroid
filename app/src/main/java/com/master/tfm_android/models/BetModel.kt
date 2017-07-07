@@ -4,11 +4,11 @@ data class BetModel(
         val event: String,
         val type: String,
         val pick: String,
-        val account: Int = 1,
-        val stake: Double = 0.1,
+        val account: Int,
+        val stake: Double,
         val amount: Double,
         val odds: Double,
         val status: String,
-        val user: Int = 1,
+        val user: Int,
         val tipster: String
 )

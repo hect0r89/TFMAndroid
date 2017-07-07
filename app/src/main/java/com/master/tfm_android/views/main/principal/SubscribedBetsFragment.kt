@@ -37,9 +37,15 @@ class SubscribedBetsFragment : Fragment(), SubscribedBetsContract.View {
         mPresenter?.start()
     }
 
+    fun start(){
+        mPresenter?.start()
+    }
 
-    fun newInstance(): SubscribedBetsFragment {
-        return SubscribedBetsFragment()
+
+    companion object {
+        fun newInstance(): SubscribedBetsFragment {
+            return SubscribedBetsFragment()
+        }
     }
 
     override fun setPresenter(presenter: SubscribedBetsContract.Presenter) {

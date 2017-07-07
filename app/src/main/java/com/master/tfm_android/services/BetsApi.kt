@@ -23,9 +23,9 @@ class BetsApi {
                     .baseUrl("http://192.168.0.111:8000/api/1.0/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            retrofit = (builder as Retrofit.Builder?)?.build()
+            retrofit = builder?.build()
 
-            betService = (retrofit as Retrofit?)?.create(BetService::class.java) as BetService
+            betService = retrofit?.create(BetService::class.java) as BetService
         }
 
         fun addToken(token: String) {
@@ -35,7 +35,7 @@ class BetsApi {
                     (httpClient as OkHttpClient.Builder).addInterceptor(interceptor)
                     builder?.client((httpClient as OkHttpClient.Builder).build())
                     retrofit = builder?.build()
-                    betService = (retrofit as Retrofit?)?.create(BetService::class.java) as BetService
+                    betService = retrofit?.create(BetService::class.java) as BetService
                 }
             }
         }

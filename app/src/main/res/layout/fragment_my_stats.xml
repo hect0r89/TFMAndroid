@@ -5,17 +5,284 @@
     android:layout_height="match_parent"
     tools:context="com.master.tfm_android.views.authentication.RegisterFragment">
 
-
-    <TextView
-        android:id="@+id/titleRegister"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:text="Stats"
-        android:textSize="32sp"
-        app:layout_constraintLeft_toLeftOf="@+id/editTextUsernameRegister"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="4dp"
+        card_view:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        card_view:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        card_view:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
+            <TextView
+                android:id="@+id/labelBet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/lbl_bet"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/labelEarnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_earnings"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelBet"
+                app:layout_constraintTop_toBottomOf="@+id/labelBet" />
+
+            <TextView
+                android:id="@+id/labelMeanBets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_mean_bet"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelEarnings"
+                app:layout_constraintTop_toBottomOf="@+id/labelEarnings" />
+
+            <TextView
+                android:id="@+id/labelBetNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_n_of_bets"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelMeanBets"
+                app:layout_constraintTop_toBottomOf="@+id/labelMeanBets" />
+
+            <TextView
+                android:id="@+id/labelFails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_fails"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelBetNumber"
+                app:layout_constraintTop_toBottomOf="@+id/labelBetNumber" />
+
+            <TextView
+                android:id="@+id/txtBenefits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelBenefits"
+                app:layout_constraintTop_toTopOf="@+id/labelBenefits"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtLosses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelLosses"
+                app:layout_constraintTop_toTopOf="@+id/labelLosses"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtMeanOdds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelMeanOdd"
+                app:layout_constraintTop_toTopOf="@+id/labelMeanOdd"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelWins"
+                app:layout_constraintTop_toTopOf="@+id/labelWins"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtNulls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelNulls"
+                app:layout_constraintTop_toTopOf="@+id/labelNulls"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtYield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="21sp"
+                app:layout_constraintLeft_toRightOf="@+id/labelYield"
+                app:layout_constraintTop_toTopOf="@+id/labelYield"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/labelSuccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_success_percentage"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/labelYield"
+                app:layout_constraintRight_toLeftOf="@+id/txtSuccess"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/txtBet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelBet"
+                app:layout_constraintTop_toTopOf="@+id/labelBet"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtEarnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelEarnings"
+                app:layout_constraintTop_toTopOf="@+id/labelEarnings"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtMeanBets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelMeanBets"
+                app:layout_constraintTop_toTopOf="@+id/labelMeanBets"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtBetNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelBetNumber"
+                app:layout_constraintTop_toTopOf="@+id/labelBetNumber"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/txtFails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toRightOf="@+id/labelFails"
+                app:layout_constraintTop_toTopOf="@+id/labelFails"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/labelBenefits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/lbl_benefits"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="200dp" />
+
+            <TextView
+                android:id="@+id/labelLosses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_losses"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelBenefits"
+                app:layout_constraintTop_toBottomOf="@+id/labelBenefits" />
+
+            <TextView
+                android:id="@+id/labelMeanOdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_mean_odd"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelLosses"
+                app:layout_constraintTop_toBottomOf="@+id/labelLosses" />
+
+            <TextView
+                android:id="@+id/labelWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_wins"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelMeanOdd"
+                app:layout_constraintTop_toBottomOf="@+id/labelMeanOdd" />
+
+            <TextView
+                android:id="@+id/labelNulls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/lbl_nulls"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/labelWins"
+                app:layout_constraintTop_toBottomOf="@+id/labelWins" />
+
+            <TextView
+                android:id="@+id/labelYield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_yield"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                app:layout_constraintRight_toLeftOf="@+id/txtYield"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginTop="31dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtFails" />
+
+            <TextView
+                android:id="@+id/txtSuccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="21sp"
+                app:layout_constraintLeft_toRightOf="@+id/labelSuccess"
+                app:layout_constraintTop_toTopOf="@+id/labelSuccess"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="8dp" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

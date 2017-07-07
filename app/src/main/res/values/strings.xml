@@ -15,4 +15,16 @@
     <string name="already_a_member">Already a member?</string>
     <string name="sign_in">SIGN IN</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="lbl_bet">Bet:</string>
+    <string name="lbl_earnings">Earnings:</string>
+    <string name="lbl_mean_bet">Mean bet:</string>
+    <string name="lbl_n_of_bets">Nº of bets:</string>
+    <string name="lbl_fails">Fails:</string>
+    <string name="lbl_success_percentage">Success:</string>
+    <string name="lbl_benefits">Benefits:</string>
+    <string name="lbl_losses">Losses:</string>
+    <string name="lbl_mean_odd">Mean Odd:</string>
+    <string name="lbl_wins">Wins:</string>
+    <string name="lbl_nulls">Nulls:</string>
+    <string name="lbl_yield">Yield:</string>
 </resources>

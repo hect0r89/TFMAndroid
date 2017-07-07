@@ -7,21 +7,32 @@ import com.master.tfm_android.views.main.principal.MyBetsFragment
 import com.master.tfm_android.views.main.principal.MyStatsFragment
 import com.master.tfm_android.views.main.principal.SubscribedBetsFragment
 
-class PagerAdapter(fm: FragmentManager, private val numTabs: Int ) : FragmentStatePagerAdapter(fm) {
+class PagerAdapter(fm: FragmentManager, private val numTabs: Int) : FragmentStatePagerAdapter(fm) {
+    var tab1: SubscribedBetsFragment? = null
+    var tab2: MyBetsFragment? = null
+    var tab3: MyStatsFragment? = null
 
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> {
-                val tab1 = SubscribedBetsFragment().newInstance()
-                return tab1
+                if (tab1 == null) {
+                    tab1 = SubscribedBetsFragment.newInstance()
+                }
+                return tab1 as SubscribedBetsFragment
             }
             1 -> {
-                val tab2 = MyBetsFragment().newInstance()
-                return tab2
+                if (tab2 == null) {
+                    tab2 = MyBetsFragment.newInstance()
+                }
+
+                return tab2 as MyBetsFragment
             }
             2 -> {
-                val tab3 = MyStatsFragment().newInstance()
-                return tab3
+                if (tab3 == null) {
+                    tab3 = MyStatsFragment.newInstance()
+                }
+
+                return tab3 as MyStatsFragment
             }
             else -> throw RuntimeException("Tab position invalid " + position) as Throwable
         }
@@ -30,5 +41,6 @@ class PagerAdapter(fm: FragmentManager, private val numTabs: Int ) : FragmentSta
     override fun getCount(): Int {
         return numTabs
     }
+
 
 }

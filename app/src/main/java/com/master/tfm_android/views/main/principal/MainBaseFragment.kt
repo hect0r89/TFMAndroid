@@ -13,9 +13,14 @@ import android.widget.Toast
 import com.master.tfm_android.adapters.PagerAdapter
 
 
+
+
 class MainBaseFragment : Fragment() {
-    fun newInstance(): MainBaseFragment {
-        return MainBaseFragment()
+
+    companion object {
+        fun newInstance(): MainBaseFragment {
+            return MainBaseFragment()
+        }
     }
 
 
@@ -44,7 +49,18 @@ class MainBaseFragment : Fragment() {
         return object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
-                Toast.makeText(activity, "Tab selected " + tab.position, Toast.LENGTH_SHORT).show()
+                val adapter = viewPager.adapter as PagerAdapter
+                if(tab.position == 0){
+                    (adapter.getItem(tab.position) as SubscribedBetsFragment).start()
+                }
+                if(tab.position == 1){
+                    (adapter.getItem(tab.position) as MyBetsFragment).start()
+                }
+                if(tab.position == 2){
+                    (adapter.getItem(tab.position) as MyStatsFragment).start()
+                }
+
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {

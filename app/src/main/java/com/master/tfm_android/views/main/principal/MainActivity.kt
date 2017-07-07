@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 
 import com.master.tfm_android.R
+import com.master.tfm_android.repositories.RetrofitMainRepository
 import com.master.tfm_android.utils.ActivityUtils
 
 class MainActivity : AppCompatActivity() {
@@ -19,11 +20,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+        RetrofitMainRepository.initialize()
 
         baseFragment = supportFragmentManager
                 .findFragmentById(R.id.contentMainFrame) as? MainBaseFragment
         if (baseFragment == null) {
-            baseFragment = MainBaseFragment().newInstance()
+            baseFragment = MainBaseFragment.newInstance()
             baseFragment?.let{ActivityUtils.addFragmentToActivity(supportFragmentManager, it, R.id.contentMainFrame)}
 
         }

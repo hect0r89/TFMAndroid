@@ -23,8 +23,10 @@ class RegisterFragment : Fragment(), AuthenticationContract.View {
 
 
 
-    fun newInstance(): RegisterFragment {
-        return RegisterFragment()
+    companion object {
+        fun newInstance(): RegisterFragment {
+            return RegisterFragment()
+        }
     }
 
     override fun setPresenter(presenter: AuthenticationContract.Presenter) {
@@ -39,7 +41,7 @@ class RegisterFragment : Fragment(), AuthenticationContract.View {
 
         val root = inflater.inflate(R.layout.fragment_register, container, false)
         val btnRegister = root.findViewById(R.id.btnRegister) as Button
-        val editTextUsername = root.findViewById(R.id.editTextUsernameRegister) as TextView
+        val editTextUsername = root.findViewById(R.id.editTextUsernameRegister) as EditText
         val editTextEmail = root.findViewById(R.id.editTextEmail) as EditText
         val editTextPassword = root.findViewById(R.id.editTextPassword) as EditText
         val editTextRepeatPassword = root.findViewById(R.id.editTextRepeatPassword) as EditText

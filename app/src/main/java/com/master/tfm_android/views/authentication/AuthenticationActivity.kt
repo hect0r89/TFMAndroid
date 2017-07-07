@@ -40,7 +40,7 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
             loginFragment = supportFragmentManager
                     .findFragmentById(R.id.contentFrame) as? LoginFragment
             if (loginFragment == null) {
-                loginFragment = LoginFragment().newInstance()
+                loginFragment = LoginFragment.newInstance()
                 loginFragment?.let { setFragment(it) }
 
             }
@@ -48,7 +48,7 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
             registerFragment = supportFragmentManager
                     .findFragmentById(R.id.contentFrame) as? RegisterFragment
             if (registerFragment == null) {
-                registerFragment = RegisterFragment().newInstance()
+                registerFragment = RegisterFragment.newInstance()
             }
 
 
@@ -61,7 +61,7 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
 
     override fun onRegisterClick() {
         if (registerFragment == null) {
-            registerFragment = RegisterFragment().newInstance()
+            registerFragment = RegisterFragment.newInstance()
         }
         registerFragment?.let {
             ActivityUtils.replaceFragmentToActivity(supportFragmentManager,
@@ -72,7 +72,7 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
 
     override fun onLoginClick() {
         if (loginFragment == null) {
-            loginFragment = LoginFragment().newInstance()
+            loginFragment = LoginFragment.newInstance()
         }
         loginFragment?.let {
             ActivityUtils.replaceFragmentToActivity(supportFragmentManager,
