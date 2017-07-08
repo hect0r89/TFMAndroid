@@ -59,17 +59,30 @@ class SubscribedBetsFragment : Fragment(), SubscribedBetsContract.View {
         val root = inflater.inflate(R.layout.fragment_subscribed_bets_item_list, container, false)
         var layoutManager = LinearLayoutManager(context)
         recyclerView = root as RecyclerView?
-        recyclerView?.let {
-            it.layoutManager = layoutManager
-        }
+        recyclerView?.let { it.layoutManager = layoutManager }
         val dividerItemDecoration = DividerItemDecoration(recyclerView?.context,
                 layoutManager.orientation)
-        recyclerView?.let {
-            it.addItemDecoration(dividerItemDecoration)
-        }
-        recyclerView?.let {
-            it.adapter = SubscribedBetsRecyclerViewAdapter(bets, interactionListener)
-        }
+        recyclerView?.let { it.addItemDecoration(dividerItemDecoration) }
+        recyclerView?.let { it.adapter = SubscribedBetsRecyclerViewAdapter(bets, interactionListener) }
+        recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var fm = fragmentManager
+            var fragm = fm.findFragmentById(R.id.contentMainFrame) as MainBaseFragment
+            var fab = fragm.getFabButton()
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                fab?.let {
+                    if (dy > 0 || dy < 0 && it.isShown) {
+                        it.hide()
+                    }
+                }
+            }
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    fab?.show()
+                }
+
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
         return root
     }
 

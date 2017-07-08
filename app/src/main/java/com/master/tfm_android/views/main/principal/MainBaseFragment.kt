@@ -1,5 +1,6 @@
 package com.master.tfm_android.views.main.principal
 
+import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -15,9 +16,11 @@ import com.master.tfm_android.utils.ActivityUtils
 import org.jetbrains.annotations.Nullable
 
 
-class MainBaseFragment : Fragment() {
+class MainBaseFragment : Fragment(), MyBetsFragment.OnScrolledRecyclerView {
 
 
+    var fab : FloatingActionButton? = null
+    var viewPager : ViewPager? = null
 
     companion object {
         fun newInstance(): MainBaseFragment {
@@ -38,15 +41,16 @@ class MainBaseFragment : Fragment() {
         tabLayout.addTab(tabLayout.newTab().setText("MY STATS"))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-        val viewPager: ViewPager = root.findViewById(R.id.pager) as ViewPager
+        viewPager = root.findViewById(R.id.pager) as ViewPager
         val adapter: PagerAdapter = PagerAdapter(activity.supportFragmentManager, tabLayout.tabCount)
-        viewPager.adapter = adapter
+        viewPager?.adapter = adapter
 
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout.addOnTabSelectedListener(getOnTabSelectedListener(viewPager))
+        viewPager?.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        viewPager?.let { tabLayout.addOnTabSelectedListener(getOnTabSelectedListener(it)) }
 
-        val fab = root.findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener({ (activity as OnCreateBetClickListener).onCreateBetClick()})
+
+        fab = root.findViewById(R.id.fab) as FloatingActionButton
+        fab?.setOnClickListener({ (activity as OnCreateBetClickListener).onCreateBetClick()})
         return root
     }
 
@@ -76,8 +80,19 @@ class MainBaseFragment : Fragment() {
         }
     }
 
+    override fun getFabButton(): FloatingActionButton? {
+        return fab
+    }
+
     interface OnCreateBetClickListener {
         fun onCreateBetClick()
+    }
+
+    fun updateData() {
+        val adapter = viewPager?.adapter as PagerAdapter
+        (adapter.getItem(0) as SubscribedBetsFragment).start()
+        (adapter.getItem(1) as MyBetsFragment).start()
+        (adapter.getItem(2) as MyStatsFragment).start()
     }
 
 }

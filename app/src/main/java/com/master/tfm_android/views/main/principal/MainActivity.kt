@@ -11,7 +11,8 @@ import com.master.tfm_android.R
 import com.master.tfm_android.repositories.RetrofitMainRepository
 import com.master.tfm_android.utils.ActivityUtils
 
-class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListener {
+class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListener,  CreateBetFragment.OnUpdateData {
+
 
     var baseFragment: MainBaseFragment? = null
     var mCreateBetFragment: CreateBetFragment? = null
@@ -47,6 +48,10 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
 
         }
 
+    }
+
+    override fun updateData() {
+        baseFragment?.updateData()
     }
 
 

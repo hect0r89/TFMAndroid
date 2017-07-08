@@ -55,6 +55,7 @@ class LoginFragment : Fragment(), AuthenticationContract.View {
     }
 
     override fun showMainActivity() {
+
         (activity as OnCorrectLoginListener).onCorrectLogin()
     }
 

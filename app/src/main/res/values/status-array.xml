@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="status_array">
+        <item>Pending</item>
+        <item>Win</item>
+        <item>Lost</item>
+        <item>Null</item>
+    </string-array>
+</resources>

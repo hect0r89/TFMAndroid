@@ -8,6 +8,6 @@ data class BetModel(
         val stake: Double,
         val amount: Double,
         val odds: Double,
-        val status: String,
+        val status: Char,
         val tipster: String
 )

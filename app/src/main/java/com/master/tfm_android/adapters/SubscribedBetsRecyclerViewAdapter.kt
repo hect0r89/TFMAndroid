@@ -34,17 +34,21 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
 
     private fun showStatus(bet: BetModel, view : TextView) {
         when (bet.status) {
-            "P"-> {
+            'P'-> {
                 view.text = "Pending"
                 view.setTextColor(Color.parseColor("#F57F17"))
             }
-            "W" -> {
+            'W' -> {
                 view.text = "+${((bet.stake * 10).toInt() * bet.odds - (bet.stake * 10).toInt()).format(2)} u"
                 view.setTextColor(Color.parseColor("#64DD17"))
             }
-            "L" -> {
+            'L' -> {
                 view.text = "-${(bet.stake * 10).toInt()} u"
                 view.setTextColor(Color.parseColor("#C62828"))
+            }
+            'N' -> {
+                view.text = "0.0 u"
+                view.setTextColor(Color.parseColor("#2196F3"))
             }
         }
     }

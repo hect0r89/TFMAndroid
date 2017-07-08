@@ -29,7 +29,7 @@ class CreateBetPresenter() : CreateBetContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { bet ->
-                            Log.d("ok", "ok")
+                            mCreateView?.closeFragment()
                         },
                         { error ->
                             catchHttpError(error)
