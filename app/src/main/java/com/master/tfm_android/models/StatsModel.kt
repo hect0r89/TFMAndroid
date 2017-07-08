@@ -13,5 +13,7 @@ data class StatsModel(
         val success_percentage: Double,
         val yield: Double,
         val odds_mean: Double,
-        val bets_mean: Double
+        val bets_mean: Double,
+        val evolution : HashMap<String, Double>
+
 )

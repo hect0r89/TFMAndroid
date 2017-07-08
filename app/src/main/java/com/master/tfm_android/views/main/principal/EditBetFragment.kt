@@ -3,31 +3,29 @@ package com.master.tfm_android.views.main.principal
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.master.tfm_android.R
-import com.master.tfm_android.contracts.CreateBetContract
+import com.master.tfm_android.contracts.BetDetailContract
 import com.master.tfm_android.models.BetModel
-import com.master.tfm_android.presenters.CreateBetPresenter
+import com.master.tfm_android.presenters.ManageBetPresenter
 import retrofit2.HttpException
 
+class EditBetFragment : Fragment(), BetDetailContract.EditView {
 
-class CreateBetFragment : Fragment(), CreateBetContract.View {
 
-
-    private var mPresenter: CreateBetContract.Presenter? = null
+    private var mPresenter: BetDetailContract.Presenter? = null
     private var bet: BetModel? = null
-    private var createBetEditTexts: HashMap<String, EditText> = HashMap()
-    private var stakeSpinner : Spinner? = null
-    private var statusSpinner : Spinner? = null
+    private var betEditTexts: HashMap<String, EditText> = HashMap()
+    private var stakeSpinner: Spinner? = null
+    private var statusSpinner: Spinner? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        CreateBetPresenter(this)
+        ManageBetPresenter(this)
     }
 
     override fun onResume() {
@@ -41,14 +39,14 @@ class CreateBetFragment : Fragment(), CreateBetContract.View {
 
 
     companion object {
-        fun newInstance(bet :  BetModel?): CreateBetFragment {
-            val fragment = CreateBetFragment()
-            bet?.let { fragment.bet = bet }
+        fun newInstance(bet: BetModel): EditBetFragment {
+            val fragment = EditBetFragment()
+            fragment.bet = bet
             return fragment
         }
     }
 
-    override fun setPresenter(presenter: CreateBetContract.Presenter) {
+    override fun setPresenter(presenter: BetDetailContract.Presenter) {
         mPresenter = checkNotNull(presenter)
     }
 
@@ -56,21 +54,17 @@ class CreateBetFragment : Fragment(), CreateBetContract.View {
     @Nullable
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-
         val root = inflater.inflate(R.layout.fragment_create_bet, container, false)
-        createBetEditTexts["event"] = root.findViewById(R.id.etEvent) as EditText
-        createBetEditTexts["type"] = root.findViewById(R.id.etType) as EditText
-        createBetEditTexts["pick"] = root.findViewById(R.id.etPick) as EditText
-        createBetEditTexts["odds"] = root.findViewById(R.id.etOdds) as EditText
-        createBetEditTexts["amount"] = root.findViewById(R.id.etAmount) as EditText
-        createBetEditTexts["tipster"] = root.findViewById(R.id.etTipster) as EditText
-
-        bet?.let { copyBet(it) }
-
+        betEditTexts["event"] = root.findViewById(R.id.etEvent) as EditText
+        betEditTexts["type"] = root.findViewById(R.id.etType) as EditText
+        betEditTexts["pick"] = root.findViewById(R.id.etPick) as EditText
+        betEditTexts["odds"] = root.findViewById(R.id.etOdds) as EditText
+        betEditTexts["amount"] = root.findViewById(R.id.etAmount) as EditText
+        betEditTexts["tipster"] = root.findViewById(R.id.etTipster) as EditText
 
         val btnCreateBet = root.findViewById(R.id.btnCreateBet) as Button
-        btnCreateBet.setOnClickListener { createBet() }
+        btnCreateBet.text = "Edit"
+        btnCreateBet.setOnClickListener { editBet() }
 
         stakeSpinner = root.findViewById(R.id.spinner_stake) as Spinner
         val stakeSpinnerAdapter = ArrayAdapter.createFromResource(activity, R.array.valores_array, android.R.layout.simple_spinner_item)
@@ -81,17 +75,17 @@ class CreateBetFragment : Fragment(), CreateBetContract.View {
         val statusSpinnerAdapter = ArrayAdapter.createFromResource(activity, R.array.status_array, android.R.layout.simple_spinner_item)
         statusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         statusSpinner?.adapter = statusSpinnerAdapter
-        bet?.let { copyBet(it) }
+        this.bet?.let { updateBetDetail(it) }
         return root
     }
 
-    private fun  copyBet(bet: BetModel) {
-        createBetEditTexts["event"]?.setText(bet.event)
-        createBetEditTexts["type"]?.setText(bet.type)
-        createBetEditTexts["pick"]?.setText(bet.pick)
-        createBetEditTexts["odds"]?.setText("${bet.odds}")
-        createBetEditTexts["amount"]?.setText("${bet.amount}")
-        createBetEditTexts["tipster"]?.setText(bet.tipster)
+    fun updateBetDetail(bet: BetModel) {
+        betEditTexts["event"]?.setText(bet.event)
+        betEditTexts["type"]?.setText(bet.type)
+        betEditTexts["pick"]?.setText(bet.pick)
+        betEditTexts["odds"]?.setText("${bet.odds}")
+        betEditTexts["amount"]?.setText("${bet.amount}")
+        betEditTexts["tipster"]?.setText(bet.tipster)
         val stakePos = resources.getStringArray(R.array.valores_array).indexOf("${(bet.stake * 10).toInt()}/10")
         stakeSpinner?.setSelection(stakePos)
         val elem = resources.getStringArray(R.array.status_array).filter { it.first() == bet.status }
@@ -100,54 +94,53 @@ class CreateBetFragment : Fragment(), CreateBetContract.View {
         this.view?.visibility = View.VISIBLE
     }
 
-
-    private fun createBet() {
-
+    private fun editBet() {
         if (validFields()) {
-            bet = BetModel(
+            val editBet = BetModel(
                     null,
-                    createBetEditTexts["event"]?.text.toString(),
-                    createBetEditTexts["type"]?.text.toString(),
-                    createBetEditTexts["pick"]?.text.toString(),
+                    betEditTexts["event"]?.text.toString(),
+                    betEditTexts["type"]?.text.toString(),
+                    betEditTexts["pick"]?.text.toString(),
                     1,
                     "${stakeSpinner?.selectedItem}"[0].toString().toDouble() / 10,
-                    createBetEditTexts["amount"]?.text.toString().toDouble(),
-                    createBetEditTexts["odds"]?.text.toString().toDouble(),
+                    betEditTexts["amount"]?.text.toString().toDouble(),
+                    betEditTexts["odds"]?.text.toString().toDouble(),
                     "${statusSpinner?.selectedItem}"[0],
-                    createBetEditTexts["tipster"]?.text.toString()
+                    betEditTexts["tipster"]?.text.toString()
             )
-            bet?.let { mPresenter?.createBet(it) }
+            this.bet?.id?.let { id ->
+                mPresenter?.editBet(id, editBet)
+            }
+
         }
-
-
     }
 
     private fun validFields(): Boolean {
         var valid = true
-        if (!checkEmptyField(createBetEditTexts["event"], "Event is mandatory.")) {
+        if (!checkEmptyField(betEditTexts["event"], "Event is mandatory.")) {
             valid = false
         }
-        if (!checkEmptyField(createBetEditTexts["type"], "Type is mandatory.")) {
+        if (!checkEmptyField(betEditTexts["type"], "Type is mandatory.")) {
             valid = false
         }
-        if (!checkEmptyField(createBetEditTexts["pick"], "Pick is mandatory.")) {
+        if (!checkEmptyField(betEditTexts["pick"], "Pick is mandatory.")) {
             valid = false
         }
-        if (!checkEmptyField(createBetEditTexts["odds"], "Odds is mandatory.")) {
+        if (!checkEmptyField(betEditTexts["odds"], "Odds is mandatory.")) {
             valid = false
         }
-        if (!checkEmptyField(createBetEditTexts["amount"], "Amount is mandatory.")) {
+        if (!checkEmptyField(betEditTexts["amount"], "Amount is mandatory.")) {
             valid = false
         }
-        if (!checkEmptyField(createBetEditTexts["tipster"], "Tipster is mandatory.")) {
+        if (!checkEmptyField(betEditTexts["tipster"], "Tipster is mandatory.")) {
             valid = false
         }
         return valid
 
     }
 
-    override fun closeFragment(){
-        (activity as MainActivity).updateData()
+    override fun closeEdit(bet : BetModel) {
+        (activity as MainActivity).updateBetData(bet)
         activity.supportFragmentManager.popBackStack()
     }
 
@@ -167,8 +160,8 @@ class CreateBetFragment : Fragment(), CreateBetContract.View {
         Toast.makeText(context, error.response().message(), Toast.LENGTH_LONG).show()
     }
 
-    interface OnUpdateData {
-        fun updateData()
+    interface OnUpdateBetDataListener {
+        fun updateBetData(bet : BetModel)
     }
 
 }

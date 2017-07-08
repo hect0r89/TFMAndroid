@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.master.tfm_android.R
 import com.master.tfm_android.models.BetModel
+import com.master.tfm_android.utils.ActivityUtils
 import com.master.tfm_android.views.main.principal.MyBetsFragment
 
 
@@ -25,7 +26,7 @@ class MyBetsRecyclerViewAdapter(private val bets: List<BetModel>, private val in
         holder.eventView.text = bet.event
         holder.pickView.text = bet.pick
         holder.oddsView.text = bet.odds.toString()
-        showStatus(bet, holder.statusView)
+        ActivityUtils.setStatus(bet, holder.statusView)
         holder.stakeView.text = "${(bet.stake * 10).toInt() }/10"
         holder.amountView.text = "${bet.amount} €"
 
@@ -34,50 +35,17 @@ class MyBetsRecyclerViewAdapter(private val bets: List<BetModel>, private val in
         }
     }
 
-    private fun showStatus(bet: BetModel, view : TextView) {
-        when (bet.status) {
-            'P'-> {
-                view.text = "Pending"
-                view.setTextColor(Color.parseColor("#F57F17"))
-            }
-            'W' -> {
-                view.text = "+${(bet.amount * bet.odds - bet.amount).format(2)} €"
-                view.setTextColor(Color.parseColor("#64DD17"))
-            }
-            'L' -> {
-                view.text = "-${bet.amount} €"
-                view.setTextColor(Color.parseColor("#C62828"))
-            }
-            'N' -> {
-                view.text = "0.0 €"
-                view.setTextColor(Color.parseColor("#2196F3"))
-            }
-        }
-    }
-
-    fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
-
     override fun getItemCount(): Int {
         return bets.size
     }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val eventView: TextView
-        val pickView: TextView
-        val oddsView: TextView
-        val statusView: TextView
-        val stakeView: TextView
-        val amountView: TextView
+        val eventView: TextView = mView.findViewById(R.id.txtEvent) as TextView
+        val pickView: TextView = mView.findViewById(R.id.txtPick) as TextView
+        val oddsView: TextView = mView.findViewById(R.id.txtOdds) as TextView
+        val statusView: TextView = mView.findViewById(R.id.txtStatus) as TextView
+        val stakeView: TextView = mView.findViewById(R.id.txtStake) as TextView
+        val amountView: TextView = mView.findViewById(R.id.txtAmount) as TextView
         var betItem: BetModel? = null
-
-        init {
-            eventView = mView.findViewById(R.id.txtEvent) as TextView
-            pickView = mView.findViewById(R.id.txtPick) as TextView
-            oddsView = mView.findViewById(R.id.txtOdds) as TextView
-            statusView = mView.findViewById(R.id.txtStatus) as TextView
-            stakeView = mView.findViewById(R.id.txtStake) as TextView
-            amountView = mView.findViewById(R.id.txtAmount) as TextView
-
-        }
     }
 }

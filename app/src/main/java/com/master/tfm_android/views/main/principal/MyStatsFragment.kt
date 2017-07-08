@@ -12,6 +12,18 @@ import com.master.tfm_android.contracts.MyStatsContract
 import com.master.tfm_android.models.StatsModel
 import com.master.tfm_android.presenters.MyStatsPresenter
 import org.jetbrains.annotations.Nullable
+import com.jjoe64.graphview.series.LineGraphSeries
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.DefaultLabelFormatter
+import com.jjoe64.graphview.LegendRenderer
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
+import com.master.tfm_android.R.id.graph
+import java.util.*
+import com.master.tfm_android.R.id.graph
+import com.jjoe64.graphview.helper.StaticLabelsFormatter
+
+
 
 
 class MyStatsFragment : Fragment(), MyStatsContract.View {
@@ -20,6 +32,7 @@ class MyStatsFragment : Fragment(), MyStatsContract.View {
     private var mPresenter: MyStatsContract.Presenter? = null
     private var stats: StatsModel? = null
     private var statsTextViews: HashMap<String, TextView> = HashMap()
+    var graph : GraphView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +75,11 @@ class MyStatsFragment : Fragment(), MyStatsContract.View {
         statsTextViews["nulls"] = root.findViewById(R.id.txtNulls) as TextView
         statsTextViews["yield"] = root.findViewById(R.id.txtYield) as TextView
         statsTextViews["success"] = root.findViewById(R.id.txtSuccess) as TextView
+
+        graph = root.findViewById(R.id.graph) as GraphView
+
+
+
         return root
     }
 
@@ -79,13 +97,22 @@ class MyStatsFragment : Fragment(), MyStatsContract.View {
             else if (stats.benefit < 0) statsTextViews["benefits"]?.setTextColor(Color.parseColor("#C62828"))
             statsTextViews["losses"]?.text = "${stats.losses.format(2)} €"
             statsTextViews["losses"]?.setTextColor(Color.parseColor("#C62828"))
-            statsTextViews["mean_odd"]?.text = "${stats.odds_mean.format(2)}"
+            statsTextViews["mean_odd"]?.text = stats.odds_mean.format(2)
             statsTextViews["wins"]?.text = "${stats.win_bets}"
             statsTextViews["nulls"]?.text = "${stats.null_bets}"
             statsTextViews["yield"]?.text = "${stats.yield.format(2)} %"
             if (stats.yield > 0) statsTextViews["yield"]?.setTextColor(Color.parseColor("#64DD17"))
             else if (stats.yield < 0) statsTextViews["yield"]?.setTextColor(Color.parseColor("#C62828"))
             statsTextViews["success"]?.text = "${stats.success_percentage.format(2)} %"
+            val evolutionOrdered = stats.evolution.toSortedMap()
+            var arrayData = ArrayList<DataPoint>()
+            for (elem in evolutionOrdered){
+                arrayData.add(DataPoint(elem.key.toDouble(), elem.value))
+            }
+            val series = LineGraphSeries<DataPoint>(arrayData.toTypedArray())
+            graph?.addSeries(series)
+            graph?.title= "Last 5 months yield"
+
 
         }
     }

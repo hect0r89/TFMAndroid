@@ -1,7 +1,10 @@
 package com.master.tfm_android.utils
 
+import android.graphics.Color
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.widget.TextView
+import com.master.tfm_android.models.BetModel
 
 
 /**
@@ -42,6 +45,48 @@ object ActivityUtils {
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(frameId, fragment)
         transaction.commit()
+    }
+
+     fun setStatus(bet: BetModel, view : TextView) {
+        when (bet.status) {
+            'P'-> {
+                view.text = "Pending"
+                view.setTextColor(Color.parseColor("#F57F17"))
+            }
+            'W' -> {
+                view.text = "+${(bet.amount * bet.odds - bet.amount).format(2)} €"
+                view.setTextColor(Color.parseColor("#64DD17"))
+            }
+            'L' -> {
+                view.text = "-${bet.amount} €"
+                view.setTextColor(Color.parseColor("#C62828"))
+            }
+            'N' -> {
+                view.text = "0.0 €"
+                view.setTextColor(Color.parseColor("#2196F3"))
+            }
+        }
+    }
+
+    fun setStatusUnits(bet: BetModel, view : TextView) {
+        when (bet.status) {
+            'P'-> {
+                view.text = "Pending"
+                view.setTextColor(Color.parseColor("#F57F17"))
+            }
+            'W' -> {
+                view.text = "+${((bet.stake * 10).toInt() * bet.odds - (bet.stake * 10).toInt()).format(2)} u"
+                view.setTextColor(Color.parseColor("#64DD17"))
+            }
+            'L' -> {
+                view.text = "-${(bet.stake * 10).toInt()} u"
+                view.setTextColor(Color.parseColor("#C62828"))
+            }
+            'N' -> {
+                view.text = "0.0 u"
+                view.setTextColor(Color.parseColor("#2196F3"))
+            }
+        }
     }
 
     fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)

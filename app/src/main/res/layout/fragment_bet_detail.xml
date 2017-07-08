@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTextPrimary">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lbl_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:hint="@string/event"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textDetailEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_event"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_event" />
+
+        <TextView
+            android:id="@+id/lbl_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/type"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/textDetailEvent"
+            app:layout_constraintTop_toBottomOf="@+id/textDetailEvent" />
+
+        <TextView
+            android:id="@+id/txtDetailType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_type"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_type" />
+
+        <TextView
+            android:id="@+id/lblPick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/pick"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtDetailType"
+            app:layout_constraintTop_toBottomOf="@+id/txtDetailType" />
+
+        <TextView
+            android:id="@+id/txtDetailPick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lblPick"
+            app:layout_constraintTop_toBottomOf="@+id/lblPick" />
+
+        <TextView
+            android:id="@+id/lbl_Stake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/stake"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtDetailPick"
+            app:layout_constraintTop_toBottomOf="@+id/txtDetailPick" />
+
+        <TextView
+            android:id="@+id/txtDetailStake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_Stake"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_Stake" />
+
+        <TextView
+            android:id="@+id/lblOdds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/odds"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtDetailStake"
+            app:layout_constraintTop_toBottomOf="@+id/txtDetailStake" />
+
+        <TextView
+            android:id="@+id/txtDetailOdds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lblOdds"
+            app:layout_constraintTop_toBottomOf="@+id/lblOdds" />
+
+        <TextView
+            android:id="@+id/lblAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/amount"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtDetailOdds"
+            app:layout_constraintTop_toBottomOf="@+id/txtDetailOdds" />
+
+        <TextView
+            android:id="@+id/txtDetailAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lblAmount"
+            app:layout_constraintTop_toBottomOf="@+id/lblAmount" />
+
+        <TextView
+            android:id="@+id/lblStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/status"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtDetailAmount"
+            app:layout_constraintTop_toBottomOf="@+id/txtDetailAmount" />
+
+        <TextView
+            android:id="@+id/txtDetailStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lblStatus"
+            app:layout_constraintTop_toBottomOf="@+id/lblStatus" />
+
+        <TextView
+            android:id="@+id/lblTipster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/tipster"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtDetailStatus"
+            app:layout_constraintTop_toBottomOf="@+id/txtDetailStatus" />
+
+        <TextView
+            android:id="@+id/txtDetailTipster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lblTipster"
+            app:layout_constraintTop_toBottomOf="@+id/lblTipster" />
+
+        <Button
+            android:id="@+id/btn_copy_bet"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/copy"
+            android:textColor="@color/colorTextPrimary"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDetailTipster" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

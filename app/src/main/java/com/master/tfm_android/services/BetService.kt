@@ -1,9 +1,7 @@
 package com.master.tfm_android.services
+
 import com.master.tfm_android.models.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 import rx.Observable
 
 interface BetService {
@@ -24,5 +22,17 @@ interface BetService {
     fun getMyStats(): Observable<StatsModel>
 
     @POST("bets/")
-    fun createBet(@Body bet : BetModel) : Observable<BetModel>
+    fun createBet(@Body bet: BetModel): Observable<BetModel>
+
+    @GET("bets/{id}/")
+    fun getBetDetail(@Path("id") id: Int): Observable<BetModel>
+
+    @GET("subscribed_bets/{id}/")
+    fun getSubscribedBetDetail(@Path("id") id: Int): Observable<BetModel>
+
+    @PATCH("bets/{id}/")
+    fun editBet(@Path("id") id: Int, @Body bet: BetModel): Observable<BetModel>
+
+    @DELETE("bets/{id}/")
+    fun deleteBet(@Path("id") id: Int): Observable<Unit>
 }

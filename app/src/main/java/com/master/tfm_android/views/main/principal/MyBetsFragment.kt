@@ -1,5 +1,6 @@
 package com.master.tfm_android.views.main.principal
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -16,10 +17,6 @@ import com.master.tfm_android.models.BetModel
 import com.master.tfm_android.presenters.MyBetsPresenter
 import org.jetbrains.annotations.Nullable
 import com.master.tfm_android.R.id.fab
-
-
-
-
 
 
 class MyBetsFragment : Fragment(), MyBetsContract.View {
@@ -40,7 +37,7 @@ class MyBetsFragment : Fragment(), MyBetsContract.View {
         mPresenter?.start()
     }
 
-    fun start(){
+    fun start() {
         mPresenter?.start()
     }
 
@@ -53,6 +50,20 @@ class MyBetsFragment : Fragment(), MyBetsContract.View {
 
     override fun setPresenter(presenter: MyBetsContract.Presenter) {
         mPresenter = checkNotNull(presenter)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnListFragmentInteractionListener) {
+            interactionListener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        interactionListener = null
     }
 
 
@@ -68,20 +79,26 @@ class MyBetsFragment : Fragment(), MyBetsContract.View {
         recyclerView?.let { it.adapter = MyBetsRecyclerViewAdapter(bets, interactionListener) }
         recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var fm = fragmentManager
-            var fragm = fm.findFragmentById(R.id.contentMainFrame) as MainBaseFragment
-            var fab = fragm.getFabButton()
+            var fragm = fm.findFragmentById(R.id.contentMainFrame)
+            var fab: FloatingActionButton? = null
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                fab?.let {
-                    if (dy > 0 || dy < 0 && it.isShown) {
-                        it.hide()
+                if (fragm is MainBaseFragment) {
+                    fab = (fragm as MainBaseFragment).getFabButton()
+                    fab?.let {
+                        if (dy > 0 || dy < 0 && it.isShown) {
+                            it.hide()
+                        }
                     }
                 }
             }
+
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    fab?.show()
+                    if (fragm is MainBaseFragment) {
+                        fab = (fragm as MainBaseFragment).getFabButton()
+                        fab?.show()
+                    }
                 }
-
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
@@ -101,7 +118,7 @@ class MyBetsFragment : Fragment(), MyBetsContract.View {
     }
 
     interface OnScrolledRecyclerView {
-        fun getFabButton() : FloatingActionButton?
+        fun getFabButton(): FloatingActionButton?
     }
 
 
