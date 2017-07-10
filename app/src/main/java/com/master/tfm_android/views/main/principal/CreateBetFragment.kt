@@ -163,8 +163,8 @@ class CreateBetFragment : Fragment(), CreateBetContract.View {
         return true
     }
 
-    override fun showError(error: HttpException) {
-        Toast.makeText(context, error.response().message(), Toast.LENGTH_LONG).show()
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
     interface OnUpdateData {

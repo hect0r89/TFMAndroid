@@ -1,8 +1,10 @@
 package com.master.tfm_android.presenters
 
+import android.widget.Toast
 import com.master.tfm_android.contracts.MyStatsContract
 import com.master.tfm_android.models.StatsModel
 import com.master.tfm_android.repositories.RetrofitMainRepository
+import com.master.tfm_android.utils.ActivityUtils
 import org.jetbrains.annotations.NotNull
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -21,17 +23,16 @@ class MyStatsPresenter() : MyStatsContract.Presenter {
     }
 
     override fun getMyStats() {
-        api.getMyStats()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { stats ->
-                            mMyStatsView?.updateStats(stats as StatsModel)
-                        },
-                        { error ->
-                            error.printStackTrace()
-                        }
-                )
-
+            api.getMyStats()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            { stats ->
+                                mMyStatsView?.updateStats(stats as StatsModel)
+                            },
+                            { error ->
+                                error.printStackTrace()
+                            }
+                    )
     }
 }

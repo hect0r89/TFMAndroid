@@ -6,6 +6,7 @@ import com.master.tfm_android.models.LoginModel
 import com.master.tfm_android.models.RegisterModel
 import com.master.tfm_android.repositories.RetrofitAuthenticationRepository
 import com.master.tfm_android.repositories.SharedPreferenceTokenStorage
+import com.master.tfm_android.utils.ActivityUtils
 import org.jetbrains.annotations.NotNull
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -34,36 +35,40 @@ class AuthenticationPresenter() : AuthenticationContract.Presenter {
 
     override fun login(username: String, password: String) {
         val login = LoginModel(username, password)
+
             api.login(login)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { authenticated ->
-                            saveToken(authenticated.token)
-                            mLoginView?.let { it.showMainActivity() }
-                        },
-                        { error ->
-                            mLoginView?.let {  it.showErrors("User or password incorrect") }
-                        }
-                )
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            { authenticated ->
+                                saveToken(authenticated.token)
+                                mLoginView?.let { it.showMainActivity() }
+                            },
+                            { error ->
+                                mLoginView?.let { it.showError("User or password incorrect") }
+                            }
+                    )
+
 
 
     }
 
     override fun register(username: String, password : String, email : String) {
         val register = RegisterModel(username, password, email)
-        api.register(register)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { authenticated ->
-                            saveToken(authenticated.token)
-                            mRegisterView?.let { it.showMainActivity() }
-                        },
-                        { error ->
-                            mRegisterView?.let {  it.showErrors("User or password incorrect") }
-                        }
-                )
+
+            api.register(register)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            { authenticated ->
+                                saveToken(authenticated.token)
+                                mRegisterView?.let { it.showMainActivity() }
+                            },
+                            { error ->
+                                mRegisterView?.let { it.showError("User or password incorrect") }
+                            }
+                    )
+
     }
 
     private fun saveToken(token: String) {

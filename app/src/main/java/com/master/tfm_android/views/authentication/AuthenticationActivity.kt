@@ -13,6 +13,7 @@ import com.master.tfm_android.repositories.SharedPreferenceTokenStorage
 import com.master.tfm_android.services.BetsApi
 import com.master.tfm_android.utils.ActivityUtils
 import com.master.tfm_android.utils.ActivityUtils.PREF_NAME
+import com.master.tfm_android.utils.ActivityUtils.isInternetAvailable
 import com.master.tfm_android.views.main.principal.MainActivity
 
 class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClickListener, RegisterFragment.OnLoginClickListener, OnCorrectLoginListener {
@@ -26,8 +27,7 @@ class AuthenticationActivity : AppCompatActivity(), LoginFragment.OnRegisterClic
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
-
-        RetrofitAuthenticationRepository.initialize()
+        RetrofitAuthenticationRepository.initialize(this)
         BetsApi.initialize()
         prefs = SharedPreferenceTokenStorage(context = applicationContext, prefFileName = PREF_NAME)
         prefs?.getToken()?.let {

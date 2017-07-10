@@ -4,6 +4,7 @@ import android.util.Log
 import com.master.tfm_android.contracts.SubscribedBetsContract
 import com.master.tfm_android.models.BetModel
 import com.master.tfm_android.repositories.RetrofitMainRepository
+import com.master.tfm_android.utils.ActivityUtils
 import org.jetbrains.annotations.NotNull
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -23,7 +24,7 @@ class SubscribedBetsPresenter() : SubscribedBetsContract.Presenter {
         getSubscribedBets()
     }
 
-    override fun getSubscribedBets(){
+    override fun getSubscribedBets() {
         api.getSubscribedBets()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -35,7 +36,6 @@ class SubscribedBetsPresenter() : SubscribedBetsContract.Presenter {
                             error.printStackTrace()
                         }
                 )
-
     }
 
 

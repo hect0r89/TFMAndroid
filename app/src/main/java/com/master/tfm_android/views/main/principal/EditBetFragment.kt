@@ -3,9 +3,7 @@ package com.master.tfm_android.views.main.principal
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import com.master.tfm_android.R
 import com.master.tfm_android.contracts.BetDetailContract
@@ -25,7 +23,14 @@ class EditBetFragment : Fragment(), BetDetailContract.EditView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         ManageBetPresenter(this)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear()
     }
 
     override fun onResume() {
@@ -156,8 +161,8 @@ class EditBetFragment : Fragment(), BetDetailContract.EditView {
         return true
     }
 
-    override fun showError(error: HttpException) {
-        Toast.makeText(context, error.response().message(), Toast.LENGTH_LONG).show()
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
     interface OnUpdateBetDataListener {

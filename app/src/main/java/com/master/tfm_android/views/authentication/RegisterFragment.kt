@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.master.tfm_android.R
 import com.master.tfm_android.contracts.AuthenticationContract
 import org.jetbrains.annotations.Nullable
@@ -52,7 +53,7 @@ class RegisterFragment : Fragment(), AuthenticationContract.View {
                 mPresenter?.register(editTextUsername.text.toString(), editTextPassword.text.toString(), editTextEmail.text.toString())
             }
             else{
-                showErrors("Passwords must be equals")
+                showError("Passwords must be equals")
             }
         }
 
@@ -60,8 +61,8 @@ class RegisterFragment : Fragment(), AuthenticationContract.View {
         return root
     }
 
-    override fun showErrors(msgError: String) {
-        AlertDialog.Builder(context).setTitle("Error").setMessage(msgError).setPositiveButton("OK", { dialog, id ->  Log.d("Ok", "Login")}).show()
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
     override fun showMainActivity() {

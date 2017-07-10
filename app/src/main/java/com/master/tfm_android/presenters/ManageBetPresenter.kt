@@ -3,12 +3,12 @@ package com.master.tfm_android.presenters
 import com.master.tfm_android.contracts.BetDetailContract
 import com.master.tfm_android.models.BetModel
 import com.master.tfm_android.repositories.RetrofitMainRepository
+import com.master.tfm_android.utils.ActivityUtils
 import org.jetbrains.annotations.NotNull
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 class ManageBetPresenter() : BetDetailContract.Presenter {
-
 
 
     private var mBetDetailView: BetDetailContract.DetailView? = null
@@ -31,60 +31,64 @@ class ManageBetPresenter() : BetDetailContract.Presenter {
     }
 
     override fun getBetDetail(id: Int) {
-        api.getBetDetail(id)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { bet ->
-                            mBetDetailView?.updateBetDetail(bet as BetModel)
-                        },
-                        { error ->
-                            error.printStackTrace()
-                        }
-                )
+            api.getBetDetail(id)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            { bet ->
+                                mBetDetailView?.updateBetDetail(bet as BetModel)
+                            },
+                            { error ->
+                                error.printStackTrace()
+                            }
+                    )
+
     }
 
     override fun getSubscribedBetDetail(id: Int) {
-        api.getSubscribedBetDetail(id)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { bet ->
-                            mBetDetailView?.updateBetDetail(bet as BetModel)
-                        },
-                        { error ->
-                            error.printStackTrace()
-                        }
-                )
+            api.getSubscribedBetDetail(id)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            { bet ->
+                                mBetDetailView?.updateBetDetail(bet as BetModel)
+                            },
+                            { error ->
+                                error.printStackTrace()
+                            }
+                    )
+
     }
 
-    override fun editBet(id : Int, bet: BetModel) {
-        api.editBet(id, bet)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { bet ->
-                            mEditBetView?.closeEdit(bet)
-                        },
-                        { error ->
-                            error.printStackTrace()
-                        }
-                )
+    override fun editBet(id: Int, bet: BetModel) {
+            api.editBet(id, bet)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            { bet ->
+                                mEditBetView?.closeEdit(bet)
+                            },
+                            { error ->
+                                error.printStackTrace()
+                            }
+                    )
+
     }
 
     override fun deleteBet(id: Int) {
-        api.deleteBet(id)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            mBetDetailView?.closeFragment()
-                        },
-                        { error ->
-                            error.printStackTrace()
-                        }
-                )
-    }
 
+            api.deleteBet(id)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            {
+                                mBetDetailView?.closeFragment()
+                            },
+                            { error ->
+                                error.printStackTrace()
+                            }
+                    )
+
+    }
 
 }

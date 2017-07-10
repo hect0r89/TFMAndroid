@@ -1,6 +1,7 @@
 package com.master.tfm_android.views.main.principal
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 
@@ -26,7 +27,8 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
         setContentView(R.layout.activity_main)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-        RetrofitMainRepository.initialize()
+
+        RetrofitMainRepository.initialize(context = this)
 
         baseFragment = supportFragmentManager
                 .findFragmentById(R.id.contentMainFrame) as? MainBaseFragment
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
     }
 
     override fun onCreateBetClick() {
+        invalidateOptionsMenu()
         mCreateBetFragment = supportFragmentManager
                 .findFragmentById(R.id.contentMainFrame) as? CreateBetFragment
         if (mCreateBetFragment == null) {
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
     }
 
     override fun onEditBetClick(bet: BetModel) {
+        invalidateOptionsMenu()
         mEditBetFragment = supportFragmentManager
                 .findFragmentById(R.id.contentMainFrame) as? EditBetFragment
         if (mEditBetFragment == null) {

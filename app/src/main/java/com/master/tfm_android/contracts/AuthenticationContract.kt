@@ -8,8 +8,6 @@ import com.master.tfm_android.BaseView
 interface AuthenticationContract {
 
     interface View : BaseView<Presenter> {
-        fun showErrors(msgError: String)
-
         fun showMainActivity()
     }
 

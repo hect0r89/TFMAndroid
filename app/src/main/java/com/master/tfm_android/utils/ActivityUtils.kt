@@ -1,10 +1,17 @@
 package com.master.tfm_android.utils
 
+import android.content.Context
 import android.graphics.Color
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.widget.TextView
 import com.master.tfm_android.models.BetModel
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+import java.net.InetAddress
+import android.net.NetworkInfo
+
+
 
 
 /**
@@ -87,6 +94,13 @@ object ActivityUtils {
                 view.setTextColor(Color.parseColor("#2196F3"))
             }
         }
+    }
+
+    fun isInternetAvailable(context : Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager// 1
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+
     }
 
     fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)

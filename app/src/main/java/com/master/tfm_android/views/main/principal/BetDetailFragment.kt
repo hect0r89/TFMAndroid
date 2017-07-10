@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.master.tfm_android.R
 import com.master.tfm_android.contracts.BetDetailContract
 import com.master.tfm_android.models.BetModel
@@ -16,6 +17,7 @@ import com.master.tfm_android.utils.ActivityUtils
 
 
 class BetDetailFragment : Fragment(), BetDetailContract.DetailView {
+
 
     private var mPresenter: BetDetailContract.Presenter? = null
     private var id: Int? = null
@@ -121,6 +123,10 @@ class BetDetailFragment : Fragment(), BetDetailContract.DetailView {
         activity.supportFragmentManager.popBackStack()
     }
 
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+    }
+
 
     interface OnEditBetClickListener {
         fun onEditBetClick(bet: BetModel)
@@ -129,6 +135,7 @@ class BetDetailFragment : Fragment(), BetDetailContract.DetailView {
     interface OnCopyBetClickListener {
         fun onCopyBetClick(bet: BetModel)
     }
+
 
 
 }

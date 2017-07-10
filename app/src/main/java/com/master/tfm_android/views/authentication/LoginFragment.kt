@@ -50,12 +50,11 @@ class LoginFragment : Fragment(), AuthenticationContract.View {
         return root
     }
 
-    override fun showErrors(msgError : String) {
+    override fun showError(msgError : String) {
         AlertDialog.Builder(context).setTitle("Error").setMessage(msgError).setPositiveButton("OK", { dialog, id ->  Log.d("Ok", "Login")}).show()
     }
 
     override fun showMainActivity() {
-
         (activity as OnCorrectLoginListener).onCorrectLogin()
     }
 

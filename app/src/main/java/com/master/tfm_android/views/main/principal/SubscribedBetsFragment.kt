@@ -16,10 +16,10 @@ import android.support.v7.widget.RecyclerView
 import com.master.tfm_android.adapters.SubscribedBetsRecyclerViewAdapter
 import com.master.tfm_android.models.BetModel
 import android.support.v7.widget.DividerItemDecoration
+import android.widget.Toast
 
 
 class SubscribedBetsFragment : Fragment(), SubscribedBetsContract.View {
-
 
     private var mPresenter: SubscribedBetsContract.Presenter? = null
     private var bets: ArrayList<BetModel> = ArrayList()
@@ -115,6 +115,10 @@ class SubscribedBetsFragment : Fragment(), SubscribedBetsContract.View {
         this.bets.clear()
         this.bets.addAll(bets)
         recyclerView?.let { it.adapter.notifyDataSetChanged() }
+    }
+
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
 

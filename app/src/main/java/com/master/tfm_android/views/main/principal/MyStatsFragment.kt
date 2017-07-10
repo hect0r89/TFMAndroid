@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.master.tfm_android.R
 import com.master.tfm_android.contracts.MyStatsContract
 import com.master.tfm_android.models.StatsModel
@@ -110,6 +111,7 @@ class MyStatsFragment : Fragment(), MyStatsContract.View {
                 arrayData.add(DataPoint(elem.key.toDouble(), elem.value))
             }
             val series = LineGraphSeries<DataPoint>(arrayData.toTypedArray())
+            graph?.removeAllSeries()
             graph?.addSeries(series)
             graph?.title= "Last 5 months yield"
 
@@ -118,6 +120,11 @@ class MyStatsFragment : Fragment(), MyStatsContract.View {
     }
 
     fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
+
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+    }
+
 
 
 }

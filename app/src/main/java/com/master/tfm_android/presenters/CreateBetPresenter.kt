@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.master.tfm_android.contracts.CreateBetContract
 import com.master.tfm_android.models.BetModel
 import com.master.tfm_android.repositories.RetrofitMainRepository
+import com.master.tfm_android.utils.ActivityUtils.isInternetAvailable
 import org.jetbrains.annotations.NotNull
 import retrofit2.HttpException
 import rx.android.schedulers.AndroidSchedulers
@@ -24,23 +25,24 @@ class CreateBetPresenter() : CreateBetContract.Presenter {
     }
 
     override fun createBet(bet : BetModel) {
-        api.createBet(bet)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { bet ->
-                            mCreateView?.closeFragment()
-                        },
-                        { error ->
-                            catchHttpError(error)
-                        }
-                )
+            api.createBet(bet)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            { bet ->
+                                mCreateView?.closeFragment()
+                            },
+                            { error ->
+                                catchHttpError(error)
+                            }
+                    )
+
 
     }
 
     private fun catchHttpError(error: Throwable?) {
         if( error is HttpException){
-            mCreateView?.showError(error)
+            mCreateView?.showError(error.message())
         }
     }
 }

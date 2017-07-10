@@ -9,13 +9,10 @@ interface BetDetailContract {
     interface DetailView : BaseView<Presenter> {
         fun updateBetDetail(bet: BetModel)
         fun closeFragment()
-
     }
 
     interface EditView : BaseView<Presenter> {
         fun closeEdit(bet : BetModel)
-        fun showError(error: HttpException)
-
     }
 
     interface Presenter : BasePresenter {

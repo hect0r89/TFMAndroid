@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.master.tfm_android.R
 import com.master.tfm_android.adapters.MyBetsRecyclerViewAdapter
 import com.master.tfm_android.contracts.MyBetsContract
@@ -20,6 +21,7 @@ import com.master.tfm_android.R.id.fab
 
 
 class MyBetsFragment : Fragment(), MyBetsContract.View {
+
 
 
     private var mPresenter: MyBetsContract.Presenter? = null
@@ -115,6 +117,10 @@ class MyBetsFragment : Fragment(), MyBetsContract.View {
         this.bets.clear()
         this.bets.addAll(bets)
         recyclerView?.adapter?.notifyDataSetChanged()
+    }
+
+    override fun showError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
     interface OnScrolledRecyclerView {

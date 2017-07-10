@@ -8,7 +8,6 @@ import retrofit2.HttpException
 
 interface CreateBetContract {
     interface View : BaseView<Presenter> {
-        fun showError(error: HttpException)
         fun closeFragment()
 
     }
