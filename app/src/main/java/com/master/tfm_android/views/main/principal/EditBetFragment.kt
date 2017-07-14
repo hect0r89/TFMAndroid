@@ -103,6 +103,8 @@ class EditBetFragment : Fragment(), BetDetailContract.EditView {
         if (validFields()) {
             val editBet = BetModel(
                     null,
+                    null,
+                    null,
                     betEditTexts["event"]?.text.toString(),
                     betEditTexts["type"]?.text.toString(),
                     betEditTexts["pick"]?.text.toString(),

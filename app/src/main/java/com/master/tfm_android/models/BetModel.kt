@@ -2,6 +2,8 @@ package com.master.tfm_android.models
 
 data class BetModel(
         val id : Int?,
+        val user : Int?,
+        val username : String?,
         val event: String,
         val type: String,
         val pick: String,

@@ -3,6 +3,7 @@ package com.master.tfm_android.services
 import com.master.tfm_android.models.*
 import retrofit2.http.*
 import rx.Observable
+import java.net.UnknownServiceException
 
 interface BetService {
 
@@ -35,4 +36,10 @@ interface BetService {
 
     @DELETE("bets/{id}/")
     fun deleteBet(@Path("id") id: Int): Observable<Unit>
+
+    @GET("all_bets/")
+    fun getBets(@Query("user") user : Int): Observable<List<BetModel>>
+
+    @GET("users/{id}/")
+    fun getUser(@Path("id") id: Int): Observable<UserModel>
 }

@@ -108,6 +108,7 @@ class SubscribedBetsFragment : Fragment(), SubscribedBetsContract.View {
 
     interface OnClickSubscribedBetsListener {
         fun onClickSubscribedBet(item: BetModel)
+        fun onClickDetail(id: Int)
     }
 
 

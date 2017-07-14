@@ -41,4 +41,6 @@
     <string name="lbl_status">Status:</string>
     <string name="lbl_stake">Stake:</string>
     <string name="copy">COPY</string>
+    <string name="yield">Yield</string>
+    <string name="unsubscribe">Unsubscribe</string>
 </resources>

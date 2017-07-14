@@ -106,6 +106,8 @@ class CreateBetFragment : Fragment(), CreateBetContract.View {
         if (validFields()) {
             bet = BetModel(
                     null,
+                    null,
+                    null,
                     createBetEditTexts["event"]?.text.toString(),
                     createBetEditTexts["type"]?.text.toString(),
                     createBetEditTexts["pick"]?.text.toString(),

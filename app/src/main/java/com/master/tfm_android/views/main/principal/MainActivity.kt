@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.widget.Toast
 
 import com.master.tfm_android.R
 import com.master.tfm_android.models.BetModel
@@ -13,7 +14,7 @@ import com.master.tfm_android.utils.ActivityUtils
 
 class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListener, CreateBetFragment.OnUpdateData,
         MyBetsFragment.OnListFragmentInteractionListener, BetDetailFragment.OnEditBetClickListener, EditBetFragment.OnUpdateBetDataListener,
-        SubscribedBetsFragment.OnClickSubscribedBetsListener, BetDetailFragment.OnCopyBetClickListener {
+        SubscribedBetsFragment.OnClickSubscribedBetsListener, BetDetailFragment.OnCopyBetClickListener, UserDetailFragment.OnClickUserBetListener {
 
 
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
     var mCreateBetFragment: CreateBetFragment? = null
     var mBetDetailFragment: BetDetailFragment? = null
     var mEditBetFragment: EditBetFragment? = null
+    var mUserDetailFragment: UserDetailFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +117,22 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
             ActivityUtils.addOnTopFragmentToActivity(supportFragmentManager,
                     it, R.id.contentMainFrame)
         }
+    }
+
+    override fun onClickDetail(id: Int) {
+        mUserDetailFragment = supportFragmentManager
+                .findFragmentById(R.id.contentMainFrame) as? UserDetailFragment
+
+        mUserDetailFragment =  UserDetailFragment.newInstance(id)
+        mUserDetailFragment?.let {
+
+            ActivityUtils.addOnTopFragmentToActivity(supportFragmentManager,
+                    it, R.id.contentMainFrame)
+        }
+    }
+
+    override fun onClickBet(item: BetModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

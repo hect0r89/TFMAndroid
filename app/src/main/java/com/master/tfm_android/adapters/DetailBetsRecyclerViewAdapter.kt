@@ -9,13 +9,14 @@ import android.widget.TextView
 import com.master.tfm_android.R
 import com.master.tfm_android.models.BetModel
 import com.master.tfm_android.utils.ActivityUtils
-import com.master.tfm_android.views.main.principal.SubscribedBetsFragment
+import com.master.tfm_android.views.main.principal.MyBetsFragment
 
-class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, private val interactionListener: SubscribedBetsFragment.OnClickSubscribedBetsListener?) : RecyclerView.Adapter<SubscribedBetsRecyclerViewAdapter.ViewHolder>() {
+
+class DetailBetsRecyclerViewAdapter(private val bets: List<BetModel>) : RecyclerView.Adapter<DetailBetsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_subscribed_bets_item, parent, false)
+                .inflate(R.layout.fragments_list_bets_detail_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -25,21 +26,11 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
         holder.eventView.text = bet.event
         holder.pickView.text = bet.pick
         holder.oddsView.text = bet.odds.toString()
-        holder.usernameView.text = bet.username
-        ActivityUtils.setStatusUnits(bet, holder.statusView)
-        holder.stakeView.text = "${(bet.stake * 10).toInt()}/10"
+        ActivityUtils.setStatus(bet, holder.statusView)
+        holder.stakeView.text = "${(bet.stake * 10).toInt() }/10"
+        holder.amountView.text = "${bet.amount} €"
 
-        holder.mView.setOnClickListener {
-            interactionListener?.onClickSubscribedBet(holder.betItem as BetModel)
-        }
-
-        holder.oval.setOnClickListener {
-            (holder.betItem as BetModel).user?.let {
-                it1 -> interactionListener?.onClickDetail(it1)
-            }
-        }
     }
-
 
     override fun getItemCount(): Int {
         return bets.size
@@ -51,9 +42,7 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
         val oddsView: TextView = mView.findViewById(R.id.txtOdds) as TextView
         val statusView: TextView = mView.findViewById(R.id.txtStatus) as TextView
         val stakeView: TextView = mView.findViewById(R.id.txtStake) as TextView
-        val usernameView: TextView = mView.findViewById(R.id.txtUsernameList) as TextView
-        val oval: TextView = mView.findViewById(R.id.txt_oval) as TextView
+        val amountView: TextView = mView.findViewById(R.id.txtAmount) as TextView
         var betItem: BetModel? = null
-
     }
 }
