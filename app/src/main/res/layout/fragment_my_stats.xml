@@ -52,7 +52,7 @@
                 android:id="@+id/labelEarnings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_earnings"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelBet"
@@ -62,31 +62,34 @@
                 android:id="@+id/labelMeanBets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_mean_bet"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelEarnings"
-                app:layout_constraintTop_toBottomOf="@+id/labelEarnings" />
+                app:layout_constraintTop_toBottomOf="@+id/labelEarnings"
+                android:layout_marginLeft="0dp" />
 
             <TextView
                 android:id="@+id/labelBetNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_n_of_bets"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelMeanBets"
-                app:layout_constraintTop_toBottomOf="@+id/labelMeanBets" />
+                app:layout_constraintTop_toBottomOf="@+id/labelMeanBets"
+                android:layout_marginLeft="0dp" />
 
             <TextView
                 android:id="@+id/labelFails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_fails"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelBetNumber"
-                app:layout_constraintTop_toBottomOf="@+id/labelBetNumber" />
+                app:layout_constraintTop_toBottomOf="@+id/labelBetNumber"
+                android:layout_marginLeft="0dp" />
 
             <TextView
                 android:id="@+id/txtBenefits"
@@ -229,41 +232,45 @@
                 android:id="@+id/labelLosses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_losses"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelBenefits"
-                app:layout_constraintTop_toBottomOf="@+id/labelBenefits" />
+                app:layout_constraintTop_toBottomOf="@+id/labelBenefits"
+                android:layout_marginLeft="0dp" />
 
             <TextView
                 android:id="@+id/labelMeanOdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_mean_odd"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelLosses"
-                app:layout_constraintTop_toBottomOf="@+id/labelLosses" />
+                app:layout_constraintTop_toBottomOf="@+id/labelLosses"
+                android:layout_marginLeft="0dp" />
 
             <TextView
                 android:id="@+id/labelWins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_wins"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelMeanOdd"
-                app:layout_constraintTop_toBottomOf="@+id/labelMeanOdd" />
+                app:layout_constraintTop_toBottomOf="@+id/labelMeanOdd"
+                android:layout_marginLeft="0dp" />
 
             <TextView
                 android:id="@+id/labelNulls"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/lbl_nulls"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/labelWins"
-                app:layout_constraintTop_toBottomOf="@+id/labelWins" />
+                app:layout_constraintTop_toBottomOf="@+id/labelWins"
+                android:layout_marginLeft="0dp" />
 
             <TextView
                 android:id="@+id/labelYield"

@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:name=".views.main.principal.MainActivity"
-            android:label="@string/title_activity_main"
+            android:label="Databet"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize"
             ></activity>

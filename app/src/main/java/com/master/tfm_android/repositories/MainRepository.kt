@@ -16,4 +16,7 @@ interface MainRepository {
     fun deleteBet(id: Int): Observable<Unit>
     fun getBets(user: Int): Observable<List<BetModel>>
     fun getUser(id: Int): Observable<UserModel>
+    fun getStats(user: Int): Observable<StatsModel>
+    fun subscribe(id: Int): Observable<Unit>
+    fun unsubscribe(id: Int): Observable<Unit>
 }

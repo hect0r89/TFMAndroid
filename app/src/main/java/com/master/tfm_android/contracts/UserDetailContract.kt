@@ -15,12 +15,14 @@ interface UserDetailContract {
         fun updateBets(bets : ArrayList<BetModel>)
         fun updateStats(stats : StatsModel)
         fun updateUserInfo(user: UserModel)
+        fun  updateButton(s: String, sub : Boolean)
     }
 
     interface Presenter : BasePresenter {
-        fun getStats()
+        fun getStats(user: Int)
         fun getBets(user: Int)
         fun getUser(id : Int)
-
+        fun subscribe(id: Int)
+        fun unsubscribe(id: Int)
     }
 }

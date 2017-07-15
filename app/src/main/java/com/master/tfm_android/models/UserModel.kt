@@ -1,3 +1,3 @@
 package com.master.tfm_android.models
 
-data class UserModel(val username: String, val email: String)
+data class UserModel(val username: String, val email: String, var subscribed: Boolean)

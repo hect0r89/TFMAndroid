@@ -9,8 +9,9 @@ import com.master.tfm_android.views.main.principal.*
 
 class DetailPageAdapter(fm: FragmentManager, private val numTabs: Int) : FragmentStatePagerAdapter(fm){
     var tab1: BetsListDetailFragment? = null
-    var tab2: MyBetsFragment? = null
+    var tab2: StatsDetailFragment? = null
     var bets : List<BetModel>? = null
+    var stats : StatsModel? = null
 
     override fun getItem(position: Int): Fragment {
         when (position) {
@@ -22,10 +23,10 @@ class DetailPageAdapter(fm: FragmentManager, private val numTabs: Int) : Fragmen
             }
             1 -> {
                 if (tab2 == null) {
-                    tab2 = MyBetsFragment.newInstance()
+                    tab2 = StatsDetailFragment.newInstance()
                 }
 
-                return tab2 as MyBetsFragment
+                return tab2 as StatsDetailFragment
             }
             else -> throw RuntimeException("Tab position invalid " + position) as Throwable
         }
@@ -38,6 +39,11 @@ class DetailPageAdapter(fm: FragmentManager, private val numTabs: Int) : Fragmen
     fun loadBets(bets : List<BetModel>){
         this.bets = bets
         tab1?.updateBets(bets)
+    }
+
+    fun loadStats(stats : StatsModel){
+        this.stats = stats
+        tab2?.updateStats(stats)
     }
 
 

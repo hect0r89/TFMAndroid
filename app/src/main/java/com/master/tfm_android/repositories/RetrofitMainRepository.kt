@@ -75,6 +75,21 @@ class RetrofitMainRepository(val context : Context)  : MainRepository{
         return api.getBets(user)
     }
 
+    override fun getStats(user: Int): Observable<StatsModel> {
+        checkInternetConnection()
+        return api.getStats(user)
+    }
+
+    override fun subscribe(id: Int): Observable<Unit> {
+        checkInternetConnection()
+        return api.subscribe(id)
+    }
+
+    override fun unsubscribe(id: Int): Observable<Unit> {
+        checkInternetConnection()
+        return api.unsubscribe(id)
+    }
+
     companion object {
         lateinit var instance: RetrofitMainRepository
 

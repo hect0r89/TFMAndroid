@@ -1,5 +1,6 @@
 package com.master.tfm_android.views.main.principal
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -103,6 +104,7 @@ class SubscribedBetsFragment : Fragment(), SubscribedBetsContract.View {
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
+
         return root
     }
 
@@ -116,6 +118,7 @@ class SubscribedBetsFragment : Fragment(), SubscribedBetsContract.View {
         this.bets.clear()
         this.bets.addAll(bets)
         recyclerView?.let { it.adapter.notifyDataSetChanged() }
+
     }
 
     override fun showError(error: String) {

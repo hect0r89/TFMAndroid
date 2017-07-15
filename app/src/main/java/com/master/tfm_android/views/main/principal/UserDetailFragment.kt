@@ -1,6 +1,8 @@
 package com.master.tfm_android.views.main.principal
 
+import android.app.ProgressDialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.design.widget.FloatingActionButton
@@ -13,6 +15,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.master.tfm_android.R
@@ -27,6 +30,8 @@ import com.master.tfm_android.presenters.UserDetailPresenter
 import java.util.HashMap
 
 class UserDetailFragment : Fragment(), UserDetailContract.View {
+
+
     private var mPresenter: UserDetailContract.Presenter? = null
     private var bets: ArrayList<BetModel> = ArrayList()
     private var stats: StatsModel? = null
@@ -35,7 +40,9 @@ class UserDetailFragment : Fragment(), UserDetailContract.View {
     private var user: UserModel? = null
     private var userTextsView: HashMap<String, TextView> = HashMap()
     var viewPager : ViewPager? = null
-
+    var btnSub : Button? = null
+    var progress : ProgressDialog? = null
+    var root : View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +53,13 @@ class UserDetailFragment : Fragment(), UserDetailContract.View {
         super.onResume()
         userId?.let { mPresenter?.getBets(it) }
         userId?.let { mPresenter?.getUser(it) }
+        userId?.let { mPresenter?.getStats(it) }
     }
 
     fun start() {
         userId?.let { mPresenter?.getBets(it) }
         userId?.let { mPresenter?.getUser(it) }
+        userId?.let { mPresenter?.getStats(it) }
     }
 
     override fun onAttach(context: Context) {
@@ -84,25 +93,34 @@ class UserDetailFragment : Fragment(), UserDetailContract.View {
     @Nullable
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_user_detail, container, false)
-        userTextsView["username"] = root.findViewById(R.id.txtUsernameDetail) as TextView
-        userTextsView["email"] = root.findViewById(R.id.txtEmailDetail) as TextView
-        userTextsView["yield"] = root.findViewById(R.id.txtYieldDetail) as TextView
+        root = inflater.inflate(R.layout.fragment_user_detail, container, false)
 
-        val tabLayout = root.findViewById(R.id.tab_layout) as TabLayout
+        userTextsView["username"] = (root as View?)?.findViewById(R.id.txtUsernameDetail) as TextView
+        userTextsView["email"] = (root as View?)?.findViewById(R.id.txtEmailDetail) as TextView
+        userTextsView["yield"] = (root as View?)?.findViewById(R.id.txtYieldDetail) as TextView
+        btnSub = (root as View?)?.findViewById(R.id.btnSubs) as Button
+        btnSub?.setOnClickListener { btnAction() }
+        val tabLayout = (root as View?)?.findViewById(R.id.tab_layout) as TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("BETS"))
         tabLayout.addTab(tabLayout.newTab().setText("STATS"))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-        viewPager = root.findViewById(R.id.pager) as ViewPager
-        val adapter: DetailPageAdapter = DetailPageAdapter(activity.supportFragmentManager, tabLayout.tabCount)
+        viewPager = (root as View?)?.findViewById(R.id.pager) as ViewPager
+        val adapter: DetailPageAdapter = DetailPageAdapter(childFragmentManager, tabLayout.tabCount)
         viewPager?.adapter = adapter
         viewPager?.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         viewPager?.let { tabLayout.addOnTabSelectedListener(getOnTabSelectedListener(it)) }
-
-
-
+        progress = ProgressDialog.show(activity, "Loading",
+                "Wait a moment please...", true)
+        (root as View?)?.visibility = View.INVISIBLE
         return root
+    }
+
+    private fun  btnAction() {
+        user?.let {
+            if (!it.subscribed) mPresenter?.subscribe(userId!!) else mPresenter?.unsubscribe(userId!!)
+        }
+
     }
 
     private fun getOnTabSelectedListener(viewPager: ViewPager): TabLayout.OnTabSelectedListener {
@@ -128,6 +146,8 @@ class UserDetailFragment : Fragment(), UserDetailContract.View {
 
     override fun updateBets(bets: ArrayList<BetModel>) {
         (viewPager?.adapter as DetailPageAdapter).loadBets(bets)
+        progress?.dismiss()
+        root?.visibility = View.VISIBLE
     }
 
     override fun showError(error: String) {
@@ -135,13 +155,27 @@ class UserDetailFragment : Fragment(), UserDetailContract.View {
     }
 
     override fun updateStats(stats: StatsModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        (viewPager?.adapter as DetailPageAdapter).loadStats(stats)
+        userTextsView["yield"]?.text = "${stats.yield.format(2)} %"
+        if (stats.yield > 0) userTextsView["yield"]?.setTextColor(Color.parseColor("#64DD17"))
+        else if (stats.yield < 0) userTextsView["yield"]?.setTextColor(Color.parseColor("#C62828"))
     }
 
+
+
+    fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
+
     override fun updateUserInfo(user: UserModel) {
+        this.user = user
         userTextsView["username"]?.text = user.username
         userTextsView["email"]?.text = user.email
+        if (!user.subscribed) btnSub?.text = "SUBSCRIBE" else btnSub?.text = "UNSUBSCRIBE"
 
+    }
+
+    override fun updateButton(s: String, sub: Boolean) {
+        this.user?.subscribed = sub
+        btnSub?.text = s
     }
 
 

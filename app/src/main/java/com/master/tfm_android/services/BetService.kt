@@ -42,4 +42,13 @@ interface BetService {
 
     @GET("users/{id}/")
     fun getUser(@Path("id") id: Int): Observable<UserModel>
+
+    @GET("users/{id}/stats/")
+    fun getStats(@Path("id") id: Int): Observable<StatsModel>
+
+    @POST("users/{id}/subscribe/")
+    fun subscribe(@Path("id") id: Int): Observable<Unit>
+
+    @POST("users/{id}/unsubscribe/")
+    fun unsubscribe(@Path("id") id: Int): Observable<Unit>
 }

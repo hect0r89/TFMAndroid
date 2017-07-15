@@ -54,8 +54,49 @@ class UserDetailPresenter() : UserDetailContract.Presenter {
                 )
     }
 
-    override fun getStats() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getStats(user: Int) {
+        api.getStats(user)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { stats ->
+                            mUserDetailView?.updateStats(stats)
+                        },
+                        { error ->
+                            error.printStackTrace()
+
+                        }
+                )
+    }
+
+    override fun subscribe(id: Int) {
+        api.subscribe(id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { response ->
+                            mUserDetailView?.updateButton("UNSUBSCRIBE", true)
+                        },
+                        { error ->
+                            error.printStackTrace()
+
+                        }
+                )
+    }
+
+    override fun unsubscribe(id: Int) {
+        api.unsubscribe(id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { response ->
+                            mUserDetailView?.updateButton("SUBSCRIBE", false)
+                        },
+                        { error ->
+                            error.printStackTrace()
+
+                        }
+                )
     }
 
 
