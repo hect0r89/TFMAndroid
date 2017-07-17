@@ -20,7 +20,7 @@ class BetsApi {
         fun initialize() {
             httpClient = OkHttpClient.Builder()
             builder = Retrofit.Builder()
-                    .baseUrl("http://192.168.43.47:8000/api/1.0/")
+                    .baseUrl("http://192.168.1.35:8000/api/1.0/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             retrofit = builder?.build()

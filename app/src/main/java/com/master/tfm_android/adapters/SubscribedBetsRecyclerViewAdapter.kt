@@ -11,6 +11,10 @@ import com.master.tfm_android.models.BetModel
 import com.master.tfm_android.utils.ActivityUtils
 import com.master.tfm_android.views.main.principal.SubscribedBetsFragment
 
+import android.graphics.drawable.GradientDrawable
+
+
+
 class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, private val interactionListener: SubscribedBetsFragment.OnClickSubscribedBetsListener?) : RecyclerView.Adapter<SubscribedBetsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,10 +32,13 @@ class SubscribedBetsRecyclerViewAdapter(private val bets: List<BetModel>, privat
         holder.usernameView.text = bet.username
         ActivityUtils.setStatusUnits(bet, holder.statusView)
         holder.stakeView.text = "${(bet.stake * 10).toInt()}/10"
+        holder.oval.text = bet.username?.substring(0,1)?.toUpperCase()
 
         holder.mView.setOnClickListener {
             interactionListener?.onClickSubscribedBet(holder.betItem as BetModel)
         }
+        val bg = holder.oval.background as GradientDrawable
+        bg.setColor(Color.parseColor("#${bet.color}"))
 
         holder.oval.setOnClickListener {
             (holder.betItem as BetModel).user?.let {

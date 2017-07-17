@@ -105,6 +105,7 @@ class EditBetFragment : Fragment(), BetDetailContract.EditView {
                     null,
                     null,
                     null,
+                    null,
                     betEditTexts["event"]?.text.toString(),
                     betEditTexts["type"]?.text.toString(),
                     betEditTexts["pick"]?.text.toString(),
