@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,11 +69,10 @@ class MainBaseFragment : Fragment(), MyBetsFragment.OnScrolledRecyclerView {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
-                // nothing now
-            }
+       }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
-                // nothing now
+
             }
         }
     }

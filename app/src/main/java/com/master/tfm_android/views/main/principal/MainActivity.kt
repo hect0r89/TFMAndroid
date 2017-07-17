@@ -1,6 +1,7 @@
 package com.master.tfm_android.views.main.principal
 
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -14,7 +15,7 @@ import com.master.tfm_android.utils.ActivityUtils
 
 class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListener, CreateBetFragment.OnUpdateData,
         MyBetsFragment.OnListFragmentInteractionListener, BetDetailFragment.OnEditBetClickListener, EditBetFragment.OnUpdateBetDataListener,
-        SubscribedBetsFragment.OnClickSubscribedBetsListener, BetDetailFragment.OnCopyBetClickListener, UserDetailFragment.OnClickUserBetListener {
+        SubscribedBetsFragment.OnClickSubscribedBetsListener, BetDetailFragment.OnCopyBetClickListener, UserDetailFragment.OnClickUserBetListener, UserDetailFragment.subscriptionUserUpdateListener {
 
 
 
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
         setSupportActionBar(toolbar)
 
         RetrofitMainRepository.initialize(context = this)
-
         baseFragment = supportFragmentManager
                 .findFragmentById(R.id.contentMainFrame) as? MainBaseFragment
         if (baseFragment == null) {
@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
 
 
     }
+
+
 
     override fun onCreateBetClick() {
         invalidateOptionsMenu()
@@ -131,8 +133,15 @@ class MainActivity : AppCompatActivity(), MainBaseFragment.OnCreateBetClickListe
         }
     }
 
+    override fun subscriptionClick() {
+        updateData()
+    }
+
     override fun onClickBet(item: BetModel) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+
+
 
 }

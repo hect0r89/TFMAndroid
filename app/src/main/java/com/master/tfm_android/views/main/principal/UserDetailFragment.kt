@@ -120,6 +120,8 @@ class UserDetailFragment : Fragment(), UserDetailContract.View {
         user?.let {
             if (!it.subscribed) mPresenter?.subscribe(userId!!) else mPresenter?.unsubscribe(userId!!)
         }
+        (activity as MainActivity).updateData()
+
 
     }
 
@@ -177,6 +179,13 @@ class UserDetailFragment : Fragment(), UserDetailContract.View {
         this.user?.subscribed = sub
         btnSub?.text = s
     }
+
+
+    interface subscriptionUserUpdateListener{
+        fun subscriptionClick()
+    }
+
+
 
 
 }
